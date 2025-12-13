@@ -296,7 +296,7 @@ const quizQuestions = [
       { value: "daily", label: "Daily", emoji: "🛵" },
       { value: "3-5-times", label: "3-5 times a week", emoji: "📦" },
       { value: "1-2-times", label: "1-2 times a week", emoji: "🍕" },
-      { value: "rarely", label: "Rarely/Never", emoji: "👩‍����" },
+      { value: "rarely", label: "Rarely/Never", emoji: "🏠" },
     ],
   },
   {
