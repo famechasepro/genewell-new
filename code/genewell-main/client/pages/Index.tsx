@@ -228,8 +228,7 @@ export default function Index() {
               Begins
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our AI analyzes 25+ lifestyle factors to create your unique
-              wellness blueprint
+              Answer 25 science-backed questions about your body, habits, and goals to create your unique wellness blueprint
             </p>
           </div>
 
@@ -243,8 +242,7 @@ export default function Index() {
                   Smart Quiz
                 </CardTitle>
                 <CardDescription className="text-gray-600 text-lg">
-                  Answer 25 science-backed questions about your body, habits,
-                  and goals
+                  Answer 25 science-backed questions about your body, habits, and goals
                 </CardDescription>
               </CardHeader>
               <CardContent>

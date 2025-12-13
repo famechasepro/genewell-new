@@ -29,7 +29,7 @@ export default function QuizGateModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md border-0 shadow-2xl scale-90">
+      <DialogContent className="max-w-md border-0 shadow-2xl scale-[0.91]">
         <DialogHeader className="text-center">
           <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Lock className="h-8 w-8 text-white" />
