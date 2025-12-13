@@ -234,7 +234,10 @@ export default function Download() {
     }
   };
 
-  if (!analysisId) {
+  // Check for analysis ID before rendering
+  const analysisId = localStorage.getItem("analysisId");
+
+  if (!analysisId && !configuration) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
