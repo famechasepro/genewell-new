@@ -109,7 +109,7 @@ export const handleWellnessQuizSubmission: RequestHandler = async (
  */
 export const handleWellnessPurchase: RequestHandler = async (req, res) => {
   try {
-    const { analysisId, planTier, addOns = [], quizData } = req.body;
+    const { analysisId, planTier, addOns = [], quizData, language = "en" } = req.body;
 
     if (!analysisId || !planTier) {
       return res.status(400).json({
