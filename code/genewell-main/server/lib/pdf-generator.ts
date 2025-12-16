@@ -225,10 +225,9 @@ export async function generatePersonalizedPDF(
     addBulletPoint(test);
   });
 
-  doc.addPage();
-
   // === LIVE INSIGHTS (Premium & Coaching) ===
   if (tier === "premium" || tier === "coaching") {
+    doc.addPage();
     addHeaderSection(
       "Latest Science Updates",
       "Real-time health insights based on 2024 research",
@@ -264,8 +263,6 @@ export async function generatePersonalizedPDF(
     supplements.slice(0, 5).forEach((supp) => {
       addBulletPoint(supp);
     });
-
-    doc.addPage();
   }
 
   // === METABOLISM & CALORIES (for paid tiers) ===
@@ -577,10 +574,9 @@ export async function generatePersonalizedPDF(
     );
   }
 
-  doc.addPage();
-
   // === SUPPLEMENTS (Premium & Coaching) ===
   if (tier === "premium" || tier === "coaching") {
+    doc.addPage();
     addHeaderSection(
       "Smart Supplement Strategy",
       `${profile.name}'s Science-Backed Nutritional Support`,
@@ -615,11 +611,9 @@ export async function generatePersonalizedPDF(
     );
     doc.text("4. Consult doctor before starting anything");
     doc.text("5. Store in cool, dry place away from sunlight");
-
-    doc.addPage();
   }
 
-  // === PROGRESS TRACKING ===
+  // === PROGRESS TRACKING ==="
   addHeaderSection(
     "90-Day Progress Tracking System",
     `${profile.name}'s Transformation Timeline`,
@@ -651,10 +645,9 @@ export async function generatePersonalizedPDF(
   doc.text("Weeks 5-8: Visible changes, muscle/strength gains");
   doc.text("Weeks 9-12: Major transformation, habits feel automatic");
 
-  doc.addPage();
-
   // === ADD-ONS ===
   if (addOns.length > 0) {
+    doc.addPage();
     addHeaderSection(
       "Premium Add-On Content",
       `${profile.name}'s Enhanced Analysis`,
@@ -724,7 +717,9 @@ export async function generatePersonalizedPDF(
         "Note: Genes provide 20% of the equation. Environment and behavior control 80%.",
       );
 
-      doc.addPage();
+      if (addOns.includes("addon_supplement")) {
+        doc.addPage();
+      }
     }
 
     if (addOns.includes("addon_supplement")) {
