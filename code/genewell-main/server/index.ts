@@ -20,6 +20,7 @@ import {
   handleListUserPDFs,
   handleUserDashboard,
   handleStorageStats,
+  handleSamplePDF,
 } from "./routes/wellness";
 import { startCleanupJob } from "./lib/storage";
 
