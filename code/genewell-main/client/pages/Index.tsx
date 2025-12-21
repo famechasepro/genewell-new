@@ -167,6 +167,7 @@ export default function Index() {
                 size="lg"
                 variant="outline"
                 className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 px-8 py-6 text-lg rounded-full"
+                onClick={() => setShowVideoModal(true)}
               >
                 <Play className="mr-3 h-5 w-5" />
                 Watch How It Works
@@ -176,6 +177,7 @@ export default function Index() {
                 size="lg"
                 variant="outline"
                 className="border-2 border-orange-200 text-orange-700 hover:bg-orange-50 px-8 py-6 text-lg rounded-full"
+                onClick={handleSampleReport}
               >
                 <Download className="mr-3 h-5 w-5" />
                 See Sample Report
