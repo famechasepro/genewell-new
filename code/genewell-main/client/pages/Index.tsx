@@ -750,6 +750,82 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Video Modal */}
+      {showVideoModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-2xl max-w-4xl w-full">
+            <div className="flex justify-between items-center p-6 border-b border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900">How Genewell Works</h3>
+              <button
+                onClick={() => setShowVideoModal(false)}
+                className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+              >
+                ×
+              </button>
+            </div>
+            <div className="p-6">
+              <div className="relative bg-black rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-purple-600 to-pink-600">
+                  <div className="text-center text-white">
+                    <Play className="h-24 w-24 mx-auto mb-4 opacity-80" />
+                    <p className="text-xl font-semibold">How Genewell Creates Your Perfect Wellness Blueprint</p>
+                    <p className="text-sm mt-4 opacity-80">
+                      Step 1: Take a 3-minute quiz answering science-backed questions
+                      <br />
+                      Step 2: Our AI analyzes your responses using exercise physiology & nutrition science
+                      <br />
+                      Step 3: Get your personalized wellness blueprint with meal timing, workouts & sleep protocols
+                      <br />
+                      Step 4: Optional: Upload your DNA for 99% personalization accuracy
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-6">
+                <h4 className="font-semibold text-gray-900 mb-3">What You'll Learn:</h4>
+                <ul className="grid md:grid-cols-2 gap-3">
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">Your exact calorie & macro needs</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">Optimal meal timing for your body</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">Science-backed workout plan</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">Sleep & stress optimization</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">Supplement recommendations</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">90-day tracking & progress system</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="flex justify-end gap-3 p-6 border-t border-gray-200">
+              <Button variant="outline" onClick={() => setShowVideoModal(false)}>
+                Close
+              </Button>
+              <Link to="/quiz">
+                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
+                  <Brain className="mr-2 h-4 w-4" />
+                  Start Quiz Now
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Footer with Legal Links */}
       <LegalFooter />
     </div>
