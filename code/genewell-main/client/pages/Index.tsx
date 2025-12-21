@@ -779,13 +779,13 @@ export default function Index() {
                 ×
               </button>
             </div>
-            <div className="p-6">
+            <div className="p-4">
               <div className="relative bg-black rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-purple-600 to-pink-600">
-                  <div className="text-center text-white">
-                    <Play className="h-24 w-24 mx-auto mb-4 opacity-80" />
-                    <p className="text-xl font-semibold">How Genewell Creates Your Perfect Wellness Blueprint</p>
-                    <p className="text-sm mt-4 opacity-80">
+                  <div className="text-center text-white px-3">
+                    <Play className="h-16 w-16 mx-auto mb-2 opacity-80" />
+                    <p className="text-base font-semibold">How Genewell Creates Your Wellness Blueprint</p>
+                    <p className="text-xs mt-2 opacity-80">
                       Step 1: Take a 3-minute quiz answering science-backed questions
                       <br />
                       Step 2: Our AI analyzes your responses using exercise physiology & nutrition science
