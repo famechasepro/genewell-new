@@ -797,12 +797,12 @@ export default function Index() {
                   </div>
                 </div>
               </div>
-              <div className="mt-6">
-                <h4 className="font-semibold text-gray-900 mb-3">What You'll Learn:</h4>
-                <ul className="grid md:grid-cols-2 gap-3">
+              <div className="mt-3">
+                <h4 className="font-semibold text-gray-900 text-sm mb-2">What You'll Learn:</h4>
+                <ul className="space-y-1">
                   <li className="flex items-start space-x-2">
-                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">Your exact calorie & macro needs</span>
+                    <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">Your exact calorie & macro needs</span>
                   </li>
                   <li className="flex items-start space-x-2">
                     <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
