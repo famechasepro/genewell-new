@@ -41,7 +41,15 @@ export async function generatePersonalizedPDF(
   });
 
   const chunks: Buffer[] = [];
+  let pageCount = 1;
   doc.on("data", (d) => chunks.push(d as Buffer));
+
+  // Track page count
+  const originalAddPage = doc.addPage.bind(doc);
+  doc.addPage = function(options?: any) {
+    pageCount++;
+    return originalAddPage(options);
+  } as any;
 
   // Helper functions
   const addHeaderSection = (title: string, subtitle?: string) => {

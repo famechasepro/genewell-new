@@ -380,6 +380,97 @@ export const handleStorageStats: RequestHandler = async (req, res) => {
   }
 };
 
+/**
+ * GET /api/wellness/sample-pdf
+ * Returns a sample wellness blueprint PDF for demo purposes
+ */
+export const handleSamplePDF: RequestHandler = async (req, res) => {
+  try {
+    const samplePersonalizationData: PersonalizationData = {
+      profile: {
+        name: "Sample User",
+        email: "demo@genewell.com",
+        age: 30,
+        gender: "male",
+        estimatedHeightCm: 175,
+        estimatedWeightKg: 75,
+        estimatedBMR: 1750,
+        estimatedTDEE: 2400,
+        proteinGrams: 135,
+        carbsGrams: 300,
+        fatsGrams: 80,
+        stressScore: 65,
+        sleepScore: 70,
+        activityScore: 65,
+        energyScore: 70,
+        medicalConditions: [],
+        digestiveIssues: [],
+        foodIntolerances: [],
+        skinConcerns: [],
+        dietaryPreference: "omnivore",
+        exercisePreference: ["gym", "cardio"],
+        workSchedule: "9-to-5",
+        region: "India",
+        recommendedTests: [
+          "Complete Hemogram (CBC)",
+          "Fasting Blood Glucose (FBS) & Random Blood Glucose (RBS)",
+          "Lipid Profile: Total Cholesterol, LDL, HDL, Triglycerides, VLDL",
+          "Liver Function Tests (LFT): SGOT, SGPT, ALP, Bilirubin",
+          "Kidney Function Tests (RFT): Creatinine, BUN, Electrolytes",
+          "Thyroid Function Tests (TFT): TSH, Free T3, Free T4",
+          "Vitamin D (25-hydroxyvitamin D)",
+          "Iron Panel (Serum Iron, Ferritin, TIBC)"
+        ],
+        supplementPriority: [
+          "Vitamin D3 2000-4000 IU daily",
+          "Omega-3 (fish oil) 2-3g EPA+DHA daily",
+          "Magnesium Glycinate 300-400mg before bed"
+        ],
+        exerciseIntensity: "moderate",
+        mealFrequency: 3,
+        dnaConsent: false,
+      },
+      insights: {
+        metabolicInsight: "Your moderate metabolism and 9-to-5 schedule suggest optimal results with structured meal timing and consistent strength training 3-4x per week.",
+        recommendedMealTimes: ["8:00 AM", "1:00 PM", "7:00 PM"],
+        calorieRange: { min: 2100, max: 2700 },
+        macroRatios: { protein: 22.5, carbs: 50, fats: 27.5 },
+        supplementStack: [
+          { name: "Vitamin D3", reason: "Support immune function and mood", dosage: "4000 IU daily" },
+          { name: "Omega-3", reason: "Anti-inflammatory and brain health", dosage: "2-3g daily" },
+          { name: "Magnesium", reason: "Sleep quality and muscle recovery", dosage: "400mg before bed" }
+        ],
+        workoutStrategy: "3-4 days per week with compound movements. Monday/Wednesday/Friday strength training, Tuesday/Thursday optional cardio. Focus on progressive overload and proper form.",
+        sleepStrategy: "Target 7-8 hours nightly with consistent 10:30 PM bedtime and 6:30 AM wake time. Dark, cool room with minimal screen time 1 hour before sleep.",
+        stressStrategy: "5-10 minute daily breathing exercises, 30 min walks 3x weekly, and regular strength training which naturally reduces cortisol and anxiety."
+      }
+    };
+
+    const pdfChunks = await generatePersonalizedPDF(samplePersonalizationData, {
+      tier: "premium",
+      addOns: [],
+      orderId: `sample_${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      language: "en",
+    });
+
+    const base64 = pdfChunks.buffer.toString("base64");
+    const dataUrl = `data:application/pdf;base64,${base64}`;
+
+    res.status(200).json({
+      success: true,
+      pdfUrl: dataUrl,
+      filename: "sample-wellness-blueprint.pdf",
+    });
+  } catch (error) {
+    console.error("Sample PDF error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to generate sample PDF",
+    });
+  }
+};
+
 // ============================================
 // LEGACY ENDPOINTS (for backward compatibility)
 // ============================================

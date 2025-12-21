@@ -798,7 +798,7 @@ export default function Quiz() {
                   </>
                 ) : (
                   <>
-                    {language === "en" ? "Next" : "अगला"}
+                    {language === "en" ? `Next (Q${currentStep + 2})` : "अगला"}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </>
                 )}
@@ -847,7 +847,7 @@ export default function Quiz() {
             className="flex-1 px-4 py-2 text-sm"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            {language === "en" ? "Prev" : "पिछला"}
+            {language === "en" ? `Prev (Q${currentStep})` : "पिछला"}
           </Button>
 
           <Button

@@ -36,6 +36,7 @@ import LegalFooter from "@/components/LegalFooter";
 export default function Index() {
   const [quizGateOpen, setQuizGateOpen] = useState(false);
   const [selectedProductName, setSelectedProductName] = useState("");
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   const handleProductClick = (productId: string, productName: string) => {
     const quizCompleted = localStorage.getItem("analysisId");
@@ -46,6 +47,34 @@ export default function Index() {
       // User has completed quiz, proceed to download
       sessionStorage.setItem("selectedProductId", productId);
       window.location.href = "/download";
+    }
+  };
+
+  const handleSampleReport = async () => {
+    try {
+      const response = await fetch("/api/wellness/sample-pdf");
+      const data = await response.json();
+      if (data.pdfUrl) {
+        // Create blob from base64 data URL
+        const arr = data.pdfUrl.split(',');
+        const bstr = atob(arr[1]);
+        const n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        for (let i = 0; i < n; i++) {
+          u8arr[i] = bstr.charCodeAt(i);
+        }
+        const blob = new Blob([u8arr], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'genewell-sample-report.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }
+    } catch (error) {
+      console.error("Error downloading sample report:", error);
     }
   };
 
@@ -154,6 +183,7 @@ export default function Index() {
                 size="lg"
                 variant="outline"
                 className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 px-8 py-6 text-lg rounded-full"
+                onClick={() => setShowVideoModal(true)}
               >
                 <Play className="mr-3 h-5 w-5" />
                 Watch How It Works
@@ -163,6 +193,7 @@ export default function Index() {
                 size="lg"
                 variant="outline"
                 className="border-2 border-orange-200 text-orange-700 hover:bg-orange-50 px-8 py-6 text-lg rounded-full"
+                onClick={handleSampleReport}
               >
                 <Download className="mr-3 h-5 w-5" />
                 See Sample Report
@@ -707,6 +738,7 @@ export default function Index() {
               size="lg"
               variant="outline"
               className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-xl rounded-full"
+              onClick={handleSampleReport}
             >
               <Download className="mr-3 h-5 w-5" />
               See Sample Report
@@ -733,6 +765,82 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Video Modal */}
+      {showVideoModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center p-4 border-b border-gray-200">
+              <h3 className="text-lg font-bold text-gray-900">How Genewell Works</h3>
+              <button
+                onClick={() => setShowVideoModal(false)}
+                className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+              >
+                ×
+              </button>
+            </div>
+            <div className="p-4">
+              <div className="relative bg-black rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-purple-600 to-pink-600">
+                  <div className="text-center text-white px-3">
+                    <Play className="h-16 w-16 mx-auto mb-2 opacity-80" />
+                    <p className="text-base font-semibold">How Genewell Creates Your Wellness Blueprint</p>
+                    <p className="text-xs mt-2 opacity-80">
+                      Step 1: Take a 3-minute quiz answering science-backed questions
+                      <br />
+                      Step 2: Our AI analyzes your responses using exercise physiology & nutrition science
+                      <br />
+                      Step 3: Get your personalized wellness blueprint with meal timing, workouts & sleep protocols
+                      <br />
+                      Step 4: Optional: Upload your DNA for 99% personalization accuracy
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-3">
+                <h4 className="font-semibold text-gray-900 text-sm mb-2">What You'll Learn:</h4>
+                <ul className="space-y-1">
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">Your exact calorie & macro needs</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">Optimal meal timing</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">Science-backed workouts</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">Sleep & stress optimization</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">Supplement plan</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">90-day tracking system</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="flex justify-end gap-3 p-6 border-t border-gray-200">
+              <Button variant="outline" onClick={() => setShowVideoModal(false)}>
+                Close
+              </Button>
+              <Link to="/quiz">
+                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
+                  <Brain className="mr-2 h-4 w-4" />
+                  Start Quiz Now
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer with Legal Links */}
       <LegalFooter />
