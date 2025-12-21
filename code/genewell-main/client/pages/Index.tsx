@@ -769,9 +769,9 @@ export default function Index() {
       {/* Video Modal */}
       {showVideoModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full">
-            <div className="flex justify-between items-center p-6 border-b border-gray-200">
-              <h3 className="text-xl font-bold text-gray-900">How Genewell Works</h3>
+          <div className="bg-white rounded-lg shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center p-4 border-b border-gray-200">
+              <h3 className="text-lg font-bold text-gray-900">How Genewell Works</h3>
               <button
                 onClick={() => setShowVideoModal(false)}
                 className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
