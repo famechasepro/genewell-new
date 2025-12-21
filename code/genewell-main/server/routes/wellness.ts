@@ -412,12 +412,14 @@ export const handleSamplePDF: RequestHandler = async (req, res) => {
         workSchedule: "9-to-5",
         region: "India",
         recommendedTests: [
-          "Complete Metabolic Panel (glucose, kidney, liver, electrolytes)",
-          "Lipid Panel (cholesterol, LDL, HDL, triglycerides)",
-          "Thyroid Function (TSH, Free T4)",
-          "Hemoglobin (anaemia screening)",
+          "Complete Hemogram (CBC)",
+          "Fasting Blood Glucose (FBS) & Random Blood Glucose (RBS)",
+          "Lipid Profile: Total Cholesterol, LDL, HDL, Triglycerides, VLDL",
+          "Liver Function Tests (LFT): SGOT, SGPT, ALP, Bilirubin",
+          "Kidney Function Tests (RFT): Creatinine, BUN, Electrolytes",
+          "Thyroid Function Tests (TFT): TSH, Free T3, Free T4",
           "Vitamin D (25-hydroxyvitamin D)",
-          "Iron Panel (ferritin, serum iron)"
+          "Iron Panel (Serum Iron, Ferritin, TIBC)"
         ],
         supplementPriority: [
           "Vitamin D3 2000-4000 IU daily",
