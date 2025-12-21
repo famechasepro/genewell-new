@@ -753,7 +753,7 @@ export default function Index() {
       {/* Video Modal */}
       {showVideoModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-2xl max-w-4xl w-full">
+          <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full">
             <div className="flex justify-between items-center p-6 border-b border-gray-200">
               <h3 className="text-xl font-bold text-gray-900">How Genewell Works</h3>
               <button
