@@ -36,6 +36,7 @@ import LegalFooter from "@/components/LegalFooter";
 export default function Index() {
   const [quizGateOpen, setQuizGateOpen] = useState(false);
   const [selectedProductName, setSelectedProductName] = useState("");
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   const handleProductClick = (productId: string, productName: string) => {
     const quizCompleted = localStorage.getItem("analysisId");
@@ -46,6 +47,18 @@ export default function Index() {
       // User has completed quiz, proceed to download
       sessionStorage.setItem("selectedProductId", productId);
       window.location.href = "/download";
+    }
+  };
+
+  const handleSampleReport = async () => {
+    try {
+      const response = await fetch("/api/wellness/sample-pdf");
+      const data = await response.json();
+      if (data.pdfUrl) {
+        window.open(data.pdfUrl, "_blank");
+      }
+    } catch (error) {
+      console.error("Error downloading sample report:", error);
     }
   };
 
