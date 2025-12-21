@@ -55,7 +55,23 @@ export default function Index() {
       const response = await fetch("/api/wellness/sample-pdf");
       const data = await response.json();
       if (data.pdfUrl) {
-        window.open(data.pdfUrl, "_blank");
+        // Create blob from base64 data URL
+        const arr = data.pdfUrl.split(',');
+        const bstr = atob(arr[1]);
+        const n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        for (let i = 0; i < n; i++) {
+          u8arr[i] = bstr.charCodeAt(i);
+        }
+        const blob = new Blob([u8arr], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'genewell-sample-report.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
       }
     } catch (error) {
       console.error("Error downloading sample report:", error);
