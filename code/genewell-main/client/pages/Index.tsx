@@ -722,6 +722,7 @@ export default function Index() {
               size="lg"
               variant="outline"
               className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-xl rounded-full"
+              onClick={handleSampleReport}
             >
               <Download className="mr-3 h-5 w-5" />
               See Sample Report
