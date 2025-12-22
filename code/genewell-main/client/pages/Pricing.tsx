@@ -151,6 +151,9 @@ export default function Pricing() {
               <span className="font-bold text-lg text-blue-900">Genewell</span>
             </Link>
             <div className="flex items-center space-x-4">
+              <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
+                <Zap className="mr-2 h-4 w-4" /> HOME
+              </Button>
               <Link to="/login">
                 <Button variant="outline" size="sm">
                   Sign In
