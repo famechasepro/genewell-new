@@ -125,13 +125,6 @@ export default function Download() {
       const data = await response.json();
       console.log("PDF generated successfully:", data);
 
-      const plan = getProductByPlanId(config.planId);
-      const addOnPages = config.selectedAddOns.reduce((sum, id) => {
-        const addon = getAddOnById(id);
-        return sum + (addon?.pageCountAddition || 0);
-      }, 0);
-      const totalPages = (plan?.pageCount || 6) + addOnPages;
-
       setPdfData({
         pdfRecordId: data.pdfRecordId,
         orderId: data.orderId,
@@ -142,7 +135,7 @@ export default function Download() {
           Date.now() + 30 * 24 * 60 * 60 * 1000
         ).toISOString(),
         downloadUrl: data.downloadUrl,
-        pageCount: totalPages,
+        pageCount: data.pageCount || 6,
       });
 
       localStorage.setItem("lastPDFData", JSON.stringify(data));
