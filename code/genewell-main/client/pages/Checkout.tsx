@@ -133,9 +133,14 @@ export default function Checkout() {
               </div>
               <span className="font-bold text-lg text-blue-900">Genewell</span>
             </Link>
-            <Button variant="ghost" size="sm" onClick={() => navigate("/pricing")}>
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back to Plans
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
+                <Zap className="mr-2 h-4 w-4" /> HOME
+              </Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/pricing")}>
+                <ArrowLeft className="mr-2 h-4 w-4" /> Back to Plans
+              </Button>
+            </div>
           </div>
         </div>
       </header>
