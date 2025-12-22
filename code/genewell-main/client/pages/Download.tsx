@@ -27,6 +27,12 @@ import {
   getAddOnById,
   PlanConfiguration,
 } from "@/lib/products";
+import {
+  generatePersonalizedPDFClient,
+  downloadPDF,
+  type PersonalizationData,
+} from "@/lib/client-pdf-generator";
+import { analyzeQuizData } from "@/lib/quiz-analysis";
 
 interface PDFData {
   pdfRecordId: string;
@@ -92,53 +98,91 @@ export default function Download() {
         );
       }
 
+      if (!savedQuizData) {
+        throw new Error("Quiz data not found. Please complete the quiz first.");
+      }
+
       const planTier = config.planId.replace("_blueprint", "");
 
-      console.log("Generating PDF...", {
+      console.log("Generating client-side PDF...", {
         freshAnalysisId,
         planTier,
         addOns: config.selectedAddOns,
       });
 
-      const language = localStorage.getItem("language") || "en";
+      const parsedQuizData = JSON.parse(savedQuizData);
 
-      const response = await fetch("/api/wellness/purchase", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          analysisId: freshAnalysisId,
-          planTier,
+      // Analyze quiz data to create personalization data
+      const personalizationData: PersonalizationData =
+        analyzeQuizData(parsedQuizData);
+
+      // Generate PDF in browser
+      const { blob, filename } = await generatePersonalizedPDFClient(
+        personalizationData,
+        {
+          tier: planTier as any,
           addOns: config.selectedAddOns,
-          quizData: savedQuizData ? JSON.parse(savedQuizData) : undefined,
-          language,
-        }),
-      });
+          orderId: freshAnalysisId,
+          timestamp: new Date().toISOString(),
+          language: (localStorage.getItem("language") || "en") as "en" | "hi",
+        }
+      );
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Purchase API error:", response.status, errorText);
-        throw new Error(
-          `PDF generation failed: ${response.status} ${response.statusText}`
-        );
+      // Estimate page count based on tier and add-ons
+      let pageCount = 1; // Cover page
+      pageCount += 1; // Top 3 actions
+      pageCount += 1; // Executive summary
+      if (planTier === "premium" || planTier === "coaching") pageCount += 1; // Latest science
+      if (planTier !== "free") pageCount += 1; // Metabolic profile
+      if (
+        planTier === "essential" ||
+        planTier === "premium" ||
+        planTier === "coaching"
+      ) {
+        pageCount += 1; // Nutrition plan
+        if (planTier === "premium" || planTier === "coaching") pageCount += 1; // Meal plan details
       }
+      pageCount += 1; // Sleep optimization
+      if (
+        planTier === "essential" ||
+        planTier === "premium" ||
+        planTier === "coaching"
+      )
+        pageCount += 1; // Movement & fitness
+      pageCount += 1; // Stress management
+      if (planTier === "premium" || planTier === "coaching") pageCount += 1; // Supplements
+      pageCount += 1; // Progress tracking
+      pageCount += 1; // Action plan
 
-      const data = await response.json();
-      console.log("PDF generated successfully:", data);
+      console.log("PDF generated successfully:", filename);
 
       setPdfData({
-        pdfRecordId: data.pdfRecordId,
-        orderId: data.orderId,
+        pdfRecordId: `pdf_${freshAnalysisId}`,
+        orderId: freshAnalysisId,
         planTier: config.planId,
-        userName: quizData.userName || "User",
+        userName: parsedQuizData.userName || "User",
         generatedAt: new Date().toISOString(),
         expiresAt: new Date(
           Date.now() + 30 * 24 * 60 * 60 * 1000
         ).toISOString(),
-        downloadUrl: data.downloadUrl,
-        pageCount: data.pageCount || 6,
+        downloadUrl: URL.createObjectURL(blob),
+        pageCount: pageCount,
       });
 
-      localStorage.setItem("lastPDFData", JSON.stringify(data));
+      // Store for potential later use
+      localStorage.setItem(
+        "lastPDFData",
+        JSON.stringify({
+          pdfRecordId: `pdf_${freshAnalysisId}`,
+          orderId: freshAnalysisId,
+          pageCount: pageCount,
+          filename: filename,
+        })
+      );
+
+      // Store the blob for download
+      sessionStorage.setItem("pendingPDFBlob", blob.toString());
+      sessionStorage.setItem("pendingPDFFilename", filename);
     } catch (err) {
       console.error("PDF generation error:", err);
       setError(err instanceof Error ? err.message : "Failed to generate PDF");
@@ -152,35 +196,15 @@ export default function Download() {
 
     setIsDownloading(true);
     try {
-      console.log("Starting download from URL:", pdfData.downloadUrl);
-      const response = await fetch(pdfData.downloadUrl);
+      console.log("Starting download...");
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(
-          `Download failed: ${response.status} ${response.statusText}`,
-          errorText
-        );
-        throw new Error(
-          `Download failed: ${response.status} ${response.statusText}`
-        );
-      }
-
-      const blob = await response.blob();
-      console.log("PDF blob size:", blob.size);
-
-      if (blob.size === 0) {
-        throw new Error("Downloaded PDF is empty");
-      }
-
-      const url = window.URL.createObjectURL(blob);
+      // Create object URL from the blob URL stored in pdfData
       const link = document.createElement("a");
-      link.href = url;
+      link.href = pdfData.downloadUrl;
       link.download = `${(quizData.userName || "blueprint").replace(/\s+/g, "-")}_${pdfData.planTier}.pdf`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
 
       console.log("Download completed successfully");
     } catch (err) {
