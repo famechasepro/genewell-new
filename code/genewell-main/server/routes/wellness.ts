@@ -189,6 +189,7 @@ export const handleWellnessPurchase: RequestHandler = async (req, res) => {
       orderId: order.orderId,
       pdfRecordId: pdfRecord.pdfRecordId,
       downloadUrl: `/api/wellness/download-pdf/${pdfRecord.pdfRecordId}`,
+      pageCount: pdfChunks.pageCount,
       message: "PDF generated successfully!",
     });
   } catch (error) {
