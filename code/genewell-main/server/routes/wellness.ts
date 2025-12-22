@@ -123,8 +123,20 @@ export const handleWellnessPurchase: RequestHandler = async (req, res) => {
       new Map()) as any;
     let personalizationData = personalizationDataCache.get(analysisId);
 
-    // If personalization data is not in cache but quiz data is provided, regenerate it
-    if (!personalizationData && quizData) {
+    // Always regenerate personalization data if quiz data with userName is provided
+    // This ensures the user's actual name is used in the PDF instead of the default "User"
+    if (quizData && quizData.userName) {
+      console.log(
+        `Regenerating personalization data for analysisId: ${analysisId} with userName: ${quizData.userName}`,
+      );
+      personalizationData = analyzeQuizData(
+        quizData,
+        quizData.userName,
+        quizData.userEmail,
+      );
+      // Store it in cache for future use
+      personalizationDataCache.set(analysisId, personalizationData);
+    } else if (!personalizationData && quizData) {
       console.log(
         `Regenerating personalization data for analysisId: ${analysisId}`,
       );
