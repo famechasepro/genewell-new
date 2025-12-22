@@ -27,6 +27,12 @@ import {
   getAddOnById,
   PlanConfiguration,
 } from "@/lib/products";
+import {
+  generatePersonalizedPDFClient,
+  downloadPDF,
+  type PersonalizationData,
+} from "@/lib/client-pdf-generator";
+import { analyzeQuizData } from "@/lib/quiz-analysis";
 
 interface PDFData {
   pdfRecordId: string;
