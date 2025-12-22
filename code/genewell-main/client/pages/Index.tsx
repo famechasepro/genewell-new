@@ -12,6 +12,11 @@ import { Link } from "react-router-dom";
 import QuizGateModal from "@/components/QuizGateModal";
 import { products } from "@/lib/products";
 import {
+  generatePersonalizedPDFClient,
+  downloadPDF,
+  type PersonalizationData,
+} from "@/lib/client-pdf-generator";
+import {
   Sparkles,
   Brain,
   Target,
