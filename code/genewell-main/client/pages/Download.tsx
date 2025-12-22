@@ -196,35 +196,15 @@ export default function Download() {
 
     setIsDownloading(true);
     try {
-      console.log("Starting download from URL:", pdfData.downloadUrl);
-      const response = await fetch(pdfData.downloadUrl);
+      console.log("Starting download...");
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(
-          `Download failed: ${response.status} ${response.statusText}`,
-          errorText
-        );
-        throw new Error(
-          `Download failed: ${response.status} ${response.statusText}`
-        );
-      }
-
-      const blob = await response.blob();
-      console.log("PDF blob size:", blob.size);
-
-      if (blob.size === 0) {
-        throw new Error("Downloaded PDF is empty");
-      }
-
-      const url = window.URL.createObjectURL(blob);
+      // Create object URL from the blob URL stored in pdfData
       const link = document.createElement("a");
-      link.href = url;
+      link.href = pdfData.downloadUrl;
       link.download = `${(quizData.userName || "blueprint").replace(/\s+/g, "-")}_${pdfData.planTier}.pdf`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
 
       console.log("Download completed successfully");
     } catch (err) {
