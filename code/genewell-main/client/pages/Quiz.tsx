@@ -599,6 +599,9 @@ export default function Quiz() {
                 <Globe className="h-4 w-4 mr-2" />
                 {language === "en" ? "हिंदी" : "English"}
               </Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-purple-600 hover:text-purple-700 hover:bg-purple-50">
+                <Sparkles className="mr-2 h-4 w-4" /> HOME
+              </Button>
               <Button variant="ghost" onClick={() => navigate("/")}>
                 <ArrowLeft className="mr-2 h-4 w-4" /> Back
               </Button>

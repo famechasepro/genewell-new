@@ -40,11 +40,18 @@ export default function PlaceholderPage({
                 GeneWell
               </span>
             </Link>
-            <Link to="/">
-              <Button variant="ghost">
-                <ArrowLeft className="mr-2 h-4 w-4" /> Back to Home
-              </Button>
-            </Link>
+            <div className="flex items-center space-x-2">
+              <Link to="/">
+                <Button variant="ghost" size="sm" className="text-wellness-600 hover:text-wellness-700 hover:bg-wellness-50">
+                  <Dna className="mr-2 h-4 w-4" /> HOME
+                </Button>
+              </Link>
+              <Link to="/">
+                <Button variant="ghost" size="sm">
+                  <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </header>

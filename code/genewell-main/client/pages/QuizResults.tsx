@@ -77,6 +77,9 @@ export default function QuizResults() {
               <Badge className="bg-green-100 text-green-700">
                 ✅ Analysis Complete
               </Badge>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-purple-600 hover:text-purple-700 hover:bg-purple-50">
+                <Sparkles className="mr-2 h-4 w-4" /> HOME
+              </Button>
               <Button variant="ghost" onClick={() => navigate(-1)}>
                 <ArrowLeft className="mr-2 h-4 w-4" /> Back
               </Button>
