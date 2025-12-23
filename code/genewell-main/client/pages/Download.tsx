@@ -204,9 +204,9 @@ export default function Download() {
         })
       );
 
-      // Store the blob for download
-      sessionStorage.setItem("pendingPDFBlob", blob.toString());
-      sessionStorage.setItem("pendingPDFFilename", filename);
+      // Store the blob reference for download (note: Blobs can't be stored in sessionStorage)
+      // Instead, we keep the blob in memory via pdfData state
+      console.log("PDF ready for download");
     } catch (err) {
       console.error("PDF generation error:", err);
       setError(err instanceof Error ? err.message : "Failed to generate PDF");
