@@ -131,16 +131,26 @@ export default function Download() {
       }
 
       // Generate PDF in browser
-      const { blob, filename } = await generatePersonalizedPDFClient(
-        personalizationData,
-        {
-          tier: planTier as any,
-          addOns: config.selectedAddOns,
-          orderId: freshAnalysisId,
-          timestamp: new Date().toISOString(),
-          language: (localStorage.getItem("language") || "en") as "en" | "hi",
-        }
-      );
+      let blob: Blob;
+      let filename: string;
+      try {
+        const pdfResult = await generatePersonalizedPDFClient(
+          personalizationData,
+          {
+            tier: planTier as any,
+            addOns: config.selectedAddOns,
+            orderId: freshAnalysisId,
+            timestamp: new Date().toISOString(),
+            language: (localStorage.getItem("language") || "en") as "en" | "hi",
+          }
+        );
+        blob = pdfResult.blob;
+        filename = pdfResult.filename;
+        console.log("PDF generated successfully:", { filename, size: blob.size });
+      } catch (pdfErr) {
+        console.error("Failed to generate PDF:", pdfErr);
+        throw new Error(`Failed to generate PDF: ${pdfErr instanceof Error ? pdfErr.message : "Unknown error"}`);
+      }
 
       // Estimate page count based on tier and add-ons
       let pageCount = 1; // Cover page
