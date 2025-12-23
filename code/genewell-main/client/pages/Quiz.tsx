@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { WellnessQuiz } from "@shared/api";
 import LegalFooter from "@/components/LegalFooter";
+import { analyzeQuizData } from "@/lib/quiz-analysis";
 
 // Quiz Questions Configuration
 const quizQuestions = [
