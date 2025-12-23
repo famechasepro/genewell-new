@@ -110,11 +110,25 @@ export default function Download() {
         addOns: config.selectedAddOns,
       });
 
-      const parsedQuizData = JSON.parse(savedQuizData);
+      let parsedQuizData;
+      try {
+        parsedQuizData = JSON.parse(savedQuizData);
+      } catch (parseErr) {
+        console.error("Failed to parse quiz data:", parseErr);
+        throw new Error("Invalid quiz data format");
+      }
+
+      console.log("Quiz data parsed successfully:", parsedQuizData);
 
       // Analyze quiz data to create personalization data
-      const personalizationData: PersonalizationData =
-        analyzeQuizData(parsedQuizData);
+      let personalizationData: PersonalizationData;
+      try {
+        personalizationData = analyzeQuizData(parsedQuizData);
+        console.log("Personalization data created:", personalizationData);
+      } catch (analysisErr) {
+        console.error("Failed to analyze quiz data:", analysisErr);
+        throw new Error(`Failed to analyze quiz data: ${analysisErr instanceof Error ? analysisErr.message : "Unknown error"}`);
+      }
 
       // Generate PDF in browser
       const { blob, filename } = await generatePersonalizedPDFClient(
