@@ -273,6 +273,11 @@ function generateInsights(profile: any, quizData: any): PersonalizationData["ins
 }
 
 export function analyzeQuizData(quizData: any, userName?: string, userEmail?: string): PersonalizationData {
+  // Validate input
+  if (!quizData || typeof quizData !== 'object') {
+    throw new Error("Invalid quiz data: expected an object");
+  }
+
   const age = quizData.age || 30;
   const gender = quizData.gender || "female";
   const activityLevel = quizData.activityLevel || "moderately-active";
