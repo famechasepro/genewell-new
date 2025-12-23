@@ -209,7 +209,8 @@ export default function Download() {
       console.log("PDF ready for download");
     } catch (err) {
       console.error("PDF generation error:", err);
-      setError(err instanceof Error ? err.message : "Failed to generate PDF");
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setError(`PDF generation failed: ${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
