@@ -295,29 +295,29 @@ export default function Index() {
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-3xl font-bold text-purple-600 mb-2">
-                45,000+
+                16,000+
               </div>
-              <div className="text-gray-600">Personalized Plans Delivered</div>
+              <div className="text-gray-600">Plans Created by Users</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-pink-600 mb-2">89%</div>
+              <div className="text-3xl font-bold text-pink-600 mb-2">Science-Backed</div>
               <div className="text-gray-600">
-                Report Positive Changes in 30 Days
+                AI-Powered Recommendations
               </div>
             </div>
             <div>
               <div className="text-3xl font-bold text-orange-500 mb-2">
-                4.7⭐
+                25 Questions
               </div>
               <div className="text-gray-600">
-                Average Rating from 8K+ Reviews
+                Personalized Health Assessment
               </div>
             </div>
             <div>
               <div className="text-3xl font-bold text-emerald-500 mb-2">
-                95%
+                Instant
               </div>
-              <div className="text-gray-600">Customer Satisfaction Rate</div>
+              <div className="text-gray-600">3-Minute Quiz Completion</div>
             </div>
           </div>
         </div>

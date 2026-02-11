@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { WellnessQuiz } from "@shared/api";
 import LegalFooter from "@/components/LegalFooter";
+import { analyzeQuizData } from "@/lib/quiz-analysis";
 
 // Quiz Questions Configuration
 const quizQuestions = [
@@ -535,27 +536,47 @@ export default function Quiz() {
         workSchedule: rest.workSchedule || "9-to-5",
       };
 
-      const resp = await fetch("/api/wellness/quiz", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(finalQuizData),
-      });
+      // Perform client-side analysis instead of server call
+      console.log("Analyzing quiz data on client...");
+      const personalizationData = analyzeQuizData(finalQuizData, userName, userEmail);
 
-      if (!resp.ok) {
-        const errorData = await resp.text();
-        console.error("Server response:", errorData);
-        throw new Error("Quiz submission failed");
-      }
+      // Generate analysis ID client-side
+      const analysisId = `analysis_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-      const data = await resp.json();
-      if (!data.analysisId) {
-        throw new Error("No analysis ID received");
-      }
+      // Create a blueprint from the personalization data
+      const blueprint = {
+        metabolismType: {
+          type: "moderate",
+          description: personalizationData.insights.metabolicInsight,
+          characteristics: [
+            `BMR: ${personalizationData.profile.estimatedBMR} calories`,
+            `TDEE: ${personalizationData.profile.estimatedTDEE} calories`,
+            `Daily calorie range: ${personalizationData.insights.calorieRange.min} - ${personalizationData.insights.calorieRange.max}`,
+          ],
+        },
+        nutritionPlan: {
+          bestFoods: ["Lean proteins", "Whole grains", "Fresh vegetables", "Healthy fats"],
+          worstFoods: ["Processed foods", "Refined sugars", "Trans fats"],
+          mealTiming: {
+            breakfast: personalizationData.insights.recommendedMealTimes[0],
+            lunch: personalizationData.insights.recommendedMealTimes[1],
+            dinner: personalizationData.insights.recommendedMealTimes[2],
+            snacks: ["Mid-morning", "Mid-afternoon"],
+          },
+        },
+        fitnessRoutine: {
+          workoutType: personalizationData.profile.exercisePreference,
+          frequency: personalizationData.profile.mealFrequency,
+          duration: personalizationData.profile.exerciseIntensity === "low" ? 20 : 30,
+        },
+      };
 
-      localStorage.setItem("analysisId", data.analysisId);
-      localStorage.setItem("blueprint", JSON.stringify(data.blueprint));
+      localStorage.setItem("analysisId", analysisId);
+      localStorage.setItem("blueprint", JSON.stringify(blueprint));
       localStorage.setItem("language", language);
       localStorage.setItem("quizData", JSON.stringify({ ...finalQuizData, userName, userEmail, language }));
+
+      console.log("Quiz analysis complete. Navigating to results...", { analysisId, blueprint });
       navigate("/quiz-results");
     } catch (err) {
       console.error("Quiz error:", err);

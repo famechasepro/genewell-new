@@ -22,18 +22,57 @@ import {
   handleStorageStats,
   handleSamplePDF,
 } from "./routes/wellness";
+import {
+  handleCreatePaymentRequest,
+  handleVerifyPayment,
+  handlePaymentWebhook,
+  handleGetUserPurchases,
+  handleSendReportEmail,
+} from "./routes/payments";
+import {
+  requireAdmin,
+  handleGetAllUsers,
+  handleGetUserDetails,
+  handleAdminDashboard,
+  handleGetAllPurchases,
+  handleGetQuizResponses,
+  handleGetEmailLogs,
+  handleExportUsersCSV,
+} from "./routes/admin";
+import { initializeDatabase } from "./lib/db";
+import { initializeEmailService } from "./lib/email-service";
 import { startCleanupJob } from "./lib/storage";
+
+// Initialize services
+async function initializeServices() {
+  try {
+    // Initialize database
+    if (process.env.DATABASE_URL) {
+      await initializeDatabase();
+      console.log("Database initialized");
+    }
+
+    // Initialize email service
+    await initializeEmailService();
+  } catch (error) {
+    console.error("Error initializing services:", error);
+    // Continue even if services fail to initialize
+  }
+}
 
 export function createServer() {
   const app = express();
+
+  // Initialize services
+  initializeServices().catch(console.error);
 
   // Start cleanup job for expired PDFs
   startCleanupJob();
 
   // Middleware
   app.use(cors());
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json({ limit: '50mb' }));
+  app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
   // Example API routes
   app.get("/api/ping", (_req, res) => {
@@ -76,6 +115,22 @@ export function createServer() {
 
   // Product download routes (legacy)
   app.get("/api/products/download/:productId", handleProductDownload);
+
+  // Payment routes
+  app.post("/api/payments/create-payment-request", handleCreatePaymentRequest);
+  app.get("/api/payments/verify/:purchaseId", handleVerifyPayment);
+  app.post("/api/payments/webhook", handlePaymentWebhook);
+  app.get("/api/payments/user/:email", handleGetUserPurchases);
+  app.post("/api/payments/send-report-email", handleSendReportEmail);
+
+  // Admin routes - require authentication
+  app.get("/api/admin/users", requireAdmin, handleGetAllUsers);
+  app.get("/api/admin/users/:userId", requireAdmin, handleGetUserDetails);
+  app.get("/api/admin/dashboard", requireAdmin, handleAdminDashboard);
+  app.get("/api/admin/purchases", requireAdmin, handleGetAllPurchases);
+  app.get("/api/admin/quiz-responses", requireAdmin, handleGetQuizResponses);
+  app.get("/api/admin/email-logs", requireAdmin, handleGetEmailLogs);
+  app.get("/api/admin/export/users-csv", requireAdmin, handleExportUsersCSV);
 
   return app;
 }

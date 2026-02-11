@@ -110,23 +110,51 @@ export default function Download() {
         addOns: config.selectedAddOns,
       });
 
-      const parsedQuizData = JSON.parse(savedQuizData);
+      let parsedQuizData;
+      try {
+        parsedQuizData = JSON.parse(savedQuizData);
+      } catch (parseErr) {
+        console.error("Failed to parse quiz data:", parseErr);
+        throw new Error("Invalid quiz data format");
+      }
 
-      // Analyze quiz data to create personalization data
-      const personalizationData: PersonalizationData =
-        analyzeQuizData(parsedQuizData);
+      console.log("Quiz data parsed successfully:", parsedQuizData);
+
+      // Analyze quiz data to create personalization data with user's real information
+      let personalizationData: PersonalizationData;
+      try {
+        personalizationData = analyzeQuizData(
+          parsedQuizData,
+          parsedQuizData.userName,
+          parsedQuizData.userEmail
+        );
+        console.log("Personalization data created:", personalizationData);
+      } catch (analysisErr) {
+        console.error("Failed to analyze quiz data:", analysisErr);
+        throw new Error(`Failed to analyze quiz data: ${analysisErr instanceof Error ? analysisErr.message : "Unknown error"}`);
+      }
 
       // Generate PDF in browser
-      const { blob, filename } = await generatePersonalizedPDFClient(
-        personalizationData,
-        {
-          tier: planTier as any,
-          addOns: config.selectedAddOns,
-          orderId: freshAnalysisId,
-          timestamp: new Date().toISOString(),
-          language: (localStorage.getItem("language") || "en") as "en" | "hi",
-        }
-      );
+      let blob: Blob;
+      let filename: string;
+      try {
+        const pdfResult = await generatePersonalizedPDFClient(
+          personalizationData,
+          {
+            tier: planTier as any,
+            addOns: config.selectedAddOns,
+            orderId: freshAnalysisId,
+            timestamp: new Date().toISOString(),
+            language: (localStorage.getItem("language") || "en") as "en" | "hi",
+          }
+        );
+        blob = pdfResult.blob;
+        filename = pdfResult.filename;
+        console.log("PDF generated successfully:", { filename, size: blob.size });
+      } catch (pdfErr) {
+        console.error("Failed to generate PDF:", pdfErr);
+        throw new Error(`Failed to generate PDF: ${pdfErr instanceof Error ? pdfErr.message : "Unknown error"}`);
+      }
 
       // Estimate page count based on tier and add-ons
       let pageCount = 1; // Cover page
@@ -180,12 +208,13 @@ export default function Download() {
         })
       );
 
-      // Store the blob for download
-      sessionStorage.setItem("pendingPDFBlob", blob.toString());
-      sessionStorage.setItem("pendingPDFFilename", filename);
+      // Store the blob reference for download (note: Blobs can't be stored in sessionStorage)
+      // Instead, we keep the blob in memory via pdfData state
+      console.log("PDF ready for download");
     } catch (err) {
       console.error("PDF generation error:", err);
-      setError(err instanceof Error ? err.message : "Failed to generate PDF");
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setError(`PDF generation failed: ${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
