@@ -46,19 +46,31 @@ export const handleCreatePaymentRequest: RequestHandler = async (req, res) => {
       });
     }
 
-    // Create or update user in database
-    let user = await getUser(email);
-    if (!user) {
-      user = await createUser(email, name, phone, age, gender);
+    // Create or update user in database (optional - graceful fallback if DB not configured)
+    let user = null;
+    let purchase = null;
+
+    try {
+      user = await getUser(email);
+      if (!user) {
+        user = await createUser(email, name, phone, age, gender);
+      }
+
+      // Save quiz response to database
+      if (quizData && personalizationData) {
+        await saveQuizResponse(user.id, analysisId, quizData, personalizationData);
+      }
+
+      // Create purchase record
+      purchase = await createPurchase(user.id, analysisId, planId, addOns || [], amount);
+    } catch (dbError) {
+      console.warn('Database unavailable for payment request, continuing without DB:', dbError);
+      // Continue without database - still create payment
     }
 
-    // Save quiz response to database
-    if (quizData && personalizationData) {
-      await saveQuizResponse(user.id, analysisId, quizData, personalizationData);
-    }
-
-    // Create purchase record
-    const purchase = await createPurchase(user.id, analysisId, planId, addOns || [], amount);
+    // Generate fallback IDs if database is not available
+    const purchaseId = purchase?.id || Date.now();
+    const userId = user?.id || 0;
 
     // Create Instamojo payment request
     const paymentResponse = await createPaymentRequest({
@@ -67,11 +79,11 @@ export const handleCreatePaymentRequest: RequestHandler = async (req, res) => {
       buyer_name: name || email,
       email,
       phone: phone || '9999999999',
-      redirect_url: `${process.env.APP_URL || 'http://localhost:5173'}/payment-success?purchase_id=${purchase.id}`,
+      redirect_url: `${process.env.APP_URL || 'http://localhost:5173'}/payment-success?purchase_id=${purchaseId}`,
       webhook_url: `${process.env.SERVER_URL || 'http://localhost:8080'}/api/payments/webhook`,
       metadata: {
-        purchase_id: purchase.id.toString(),
-        user_id: user.id.toString(),
+        purchase_id: purchaseId.toString(),
+        user_id: userId.toString(),
         analysis_id: analysisId,
         plan_id: planId,
       },
@@ -89,7 +101,7 @@ export const handleCreatePaymentRequest: RequestHandler = async (req, res) => {
       success: true,
       paymentUrl: paymentResponse.payment_request.shorturl,
       paymentId: paymentResponse.payment_request.id,
-      purchaseId: purchase.id,
+      purchaseId,
     });
   } catch (error) {
     console.error('Error creating payment request:', error);

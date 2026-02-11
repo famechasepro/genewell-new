@@ -1,14 +1,20 @@
 import { Pool, QueryResult } from 'pg';
 
 // Initialize connection pool - will use DATABASE_URL env variable
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-});
+const pool = process.env.DATABASE_URL
+  ? new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    })
+  : null;
 
-pool.on('error', (err) => {
-  console.error('Unexpected error on idle client', err);
-});
+if (pool) {
+  pool.on('error', (err) => {
+    console.error('Unexpected error on idle client', err);
+  });
+} else {
+  console.warn('⚠️  DATABASE_URL not configured - database features will be unavailable');
+}
 
 export async function initializeDatabase() {
   const client = await pool.connect();
@@ -101,6 +107,10 @@ export async function initializeDatabase() {
 }
 
 export async function query(text: string, params?: any[]): Promise<QueryResult> {
+  if (!pool) {
+    throw new Error('Database not configured. Please set DATABASE_URL environment variable.');
+  }
+
   const start = Date.now();
   try {
     const result = await pool.query(text, params);
