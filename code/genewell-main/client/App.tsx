@@ -18,6 +18,8 @@ import Quiz from "./pages/Quiz";
 import QuizResults from "./pages/QuizResults";
 import Download from "./pages/Download";
 import Checkout from "./pages/Checkout";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import AdminDashboard from "./pages/AdminDashboard";
 import PlaceholderPage from "./pages/PlaceholderPage";
 
 const queryClient = new QueryClient();
@@ -45,9 +47,11 @@ const App = () => (
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/quiz-results" element={<QuizResults />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/download" element={<Download />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/about" element={<About />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route
             path="/demo"
             element={

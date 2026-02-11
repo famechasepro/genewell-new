@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -70,6 +70,7 @@ export default function Checkout() {
 
     try {
       const analysisId = localStorage.getItem("analysisId");
+      const quizData = JSON.parse(localStorage.getItem("quizData") || "{}");
 
       if (!analysisId) {
         throw new Error("Analysis ID not found. Please complete the quiz first.");
@@ -85,9 +86,40 @@ export default function Checkout() {
       if (configuration.totalPrice === 0) {
         navigate("/download", { state: { planId: configuration.planId, addOns: configuration.selectedAddOns } });
       } else {
-        // In production, this would integrate with a payment gateway (Razorpay, Stripe, etc.)
-        // For now, simulate successful payment
-        navigate("/download", { state: { planId: configuration.planId, addOns: configuration.selectedAddOns } });
+        // Create payment request via backend
+        const response = await fetch("/api/payments/create-payment-request", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: quizData.userEmail || "noemail@genewell.local",
+            name: quizData.userName || "User",
+            phone: quizData.phone || "9999999999",
+            age: parseInt(quizData.age) || null,
+            gender: quizData.gender || null,
+            analysisId,
+            planId: configuration.planId,
+            addOns: configuration.selectedAddOns,
+            amount: configuration.totalPrice,
+            quizData,
+            personalizationData: JSON.parse(localStorage.getItem("personalizationData") || "{}"),
+          }),
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message || "Failed to create payment request");
+        }
+
+        const { paymentUrl, paymentId, purchaseId } = await response.json();
+
+        // Store payment info
+        localStorage.setItem("currentPaymentId", paymentId);
+        localStorage.setItem("currentPurchaseId", purchaseId.toString());
+
+        // Redirect to Instamojo payment
+        window.location.href = paymentUrl;
       }
     } catch (err) {
       console.error("Checkout error:", err);

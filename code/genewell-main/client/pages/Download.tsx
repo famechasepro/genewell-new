@@ -120,10 +120,14 @@ export default function Download() {
 
       console.log("Quiz data parsed successfully:", parsedQuizData);
 
-      // Analyze quiz data to create personalization data
+      // Analyze quiz data to create personalization data with user's real information
       let personalizationData: PersonalizationData;
       try {
-        personalizationData = analyzeQuizData(parsedQuizData);
+        personalizationData = analyzeQuizData(
+          parsedQuizData,
+          parsedQuizData.userName,
+          parsedQuizData.userEmail
+        );
         console.log("Personalization data created:", personalizationData);
       } catch (analysisErr) {
         console.error("Failed to analyze quiz data:", analysisErr);
