@@ -1,13 +1,14 @@
 import crypto from 'crypto';
 
 // Instamojo API configuration
-const INSTAMOJO_API_URL = process.env.NODE_ENV === 'production' 
+const INSTAMOJO_API_URL = process.env.NODE_ENV === 'production'
   ? 'https://www.instamojo.com/api/1.1/'
   : 'https://test.instamojo.com/api/1.1/';
 
 const INSTAMOJO_AUTH_KEY = process.env.INSTAMOJO_AUTH_KEY;
 const INSTAMOJO_AUTH_TOKEN = process.env.INSTAMOJO_AUTH_TOKEN;
 const INSTAMOJO_WEBHOOK_SECRET = process.env.INSTAMOJO_WEBHOOK_SECRET;
+const INSTAMOJO_PAYMENT_LINK = 'https://www.instamojo.com/@famechase';
 
 export interface InstelloPaymentRequest {
   purpose: string;
@@ -180,4 +181,37 @@ export function parseWebhookData(data: any): {
 
 export function isPaymentSuccessful(status: string): boolean {
   return status === 'completed' || status === 'Completed';
+}
+
+/**
+ * Generate a direct Instamojo payment link with pre-filled information
+ * This is an alternative to creating payment requests via API
+ */
+export function generateDirectPaymentLink(params: {
+  amount: number;
+  buyerName?: string;
+  buyerEmail?: string;
+  buyerPhone?: string;
+  purpose?: string;
+  purchaseId?: string;
+}): string {
+  const queryParams = new URLSearchParams();
+
+  if (params.amount) {
+    queryParams.append('amount', params.amount.toString());
+  }
+  if (params.buyerName) {
+    queryParams.append('name', params.buyerName);
+  }
+  if (params.buyerEmail) {
+    queryParams.append('email', params.buyerEmail);
+  }
+  if (params.buyerPhone) {
+    queryParams.append('phone', params.buyerPhone);
+  }
+  if (params.purpose) {
+    queryParams.append('purpose', params.purpose);
+  }
+
+  return `${INSTAMOJO_PAYMENT_LINK}/?${queryParams.toString()}`;
 }

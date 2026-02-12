@@ -13,11 +13,87 @@ import {
   verifyWebhookSignature,
   parseWebhookData,
   isPaymentSuccessful,
+  generateDirectPaymentLink,
 } from '../lib/instamojo-service';
 import {
   sendConfirmationEmail,
   sendPaymentConfirmationEmail,
 } from '../lib/email-service';
+
+/**
+ * POST /api/payments/create-direct-payment-link
+ * Creates a direct payment link with Instamojo (simpler alternative)
+ */
+export const handleCreateDirectPaymentLink: RequestHandler = async (req, res) => {
+  try {
+    const {
+      email,
+      name,
+      phone,
+      age,
+      gender,
+      analysisId,
+      planId,
+      addOns,
+      amount,
+      quizData,
+      personalizationData,
+    } = req.body;
+
+    if (!email || !analysisId || !planId || amount === undefined) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required fields: email, analysisId, planId, amount',
+      });
+    }
+
+    // Create or update user in database (optional - graceful fallback if DB not configured)
+    let user = null;
+    let purchase = null;
+
+    try {
+      user = await getUser(email);
+      if (!user) {
+        user = await createUser(email, name, phone, age, gender);
+      }
+
+      // Save quiz response to database
+      if (quizData && personalizationData) {
+        await saveQuizResponse(user.id, analysisId, quizData, personalizationData);
+      }
+
+      // Create purchase record with pending status
+      purchase = await createPurchase(user.id, analysisId, planId, addOns || [], amount);
+    } catch (dbError) {
+      console.warn('Database unavailable, continuing without DB:', dbError);
+    }
+
+    const purchaseId = purchase?.id || Date.now();
+
+    // Generate direct payment link
+    const paymentUrl = generateDirectPaymentLink({
+      amount: Math.round(amount * 100) / 100,
+      buyerName: name || email,
+      buyerEmail: email,
+      buyerPhone: phone || '9999999999',
+      purpose: `GeneWell ${planId} Plan - Purchase ID: ${purchaseId}`,
+    });
+
+    res.json({
+      success: true,
+      paymentUrl,
+      purchaseId,
+      message: 'Direct payment link created successfully',
+    });
+  } catch (error) {
+    console.error('Error creating direct payment link:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+};
 
 /**
  * POST /api/payments/create-payment-request

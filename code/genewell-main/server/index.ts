@@ -24,6 +24,7 @@ import {
 } from "./routes/wellness";
 import {
   handleCreatePaymentRequest,
+  handleCreateDirectPaymentLink,
   handleVerifyPayment,
   handlePaymentWebhook,
   handleGetUserPurchases,
@@ -118,6 +119,7 @@ export function createServer() {
 
   // Payment routes
   app.post("/api/payments/create-payment-request", handleCreatePaymentRequest);
+  app.post("/api/payments/create-direct-payment-link", handleCreateDirectPaymentLink);
   app.get("/api/payments/verify/:purchaseId", handleVerifyPayment);
   app.post("/api/payments/webhook", handlePaymentWebhook);
   app.get("/api/payments/user/:email", handleGetUserPurchases);

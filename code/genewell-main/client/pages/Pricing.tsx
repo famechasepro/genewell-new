@@ -26,6 +26,7 @@ import {
   Target,
   AlertCircle,
   ChevronRight,
+  Gift,
 } from "lucide-react";
 import QuizGateModal from "@/components/QuizGateModal";
 import LegalFooter from "@/components/LegalFooter";
@@ -168,6 +169,29 @@ export default function Pricing() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Launch Offer Banner */}
+        <div className="mb-16 bg-gradient-to-r from-purple-50 via-pink-50 to-red-50 border-2 border-purple-300 rounded-lg p-6 md:p-8">
+          <div className="flex items-start space-x-4">
+            <div className="flex-shrink-0">
+              <Gift className="h-10 w-10 text-purple-600 animate-bounce" />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-2xl md:text-3xl font-bold text-purple-900 mb-2">
+                🚀 45-Day Launch Offer!
+              </h2>
+              <p className="text-purple-700 font-semibold mb-3 text-lg">
+                All premium products are <span className="text-red-600 bg-red-50 px-2 py-1 rounded">FREE for 45 days</span>
+              </p>
+              <p className="text-purple-600 mb-2">
+                Get full access to Essential, Premium, or Complete Coaching plans at no cost during our launch period.
+              </p>
+              <p className="text-sm text-purple-600">
+                <span className="font-semibold">Exception:</span> Live Training & Coaching services available as paid add-ons
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Header Section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
