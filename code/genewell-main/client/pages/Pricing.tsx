@@ -143,49 +143,50 @@ export default function Pricing() {
 
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center space-x-2">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-14 sm:h-16">
+            <Link to="/" className="flex items-center gap-2 flex-shrink-0">
               <div className="flex items-center justify-center w-8 h-8 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg">
                 <Zap className="h-5 w-5 text-white" />
               </div>
-              <span className="font-bold text-lg text-blue-900">Genewell</span>
+              <span className="font-bold text-base sm:text-lg text-blue-900">Genewell</span>
             </Link>
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
-                <Zap className="mr-2 h-4 w-4" /> HOME
+            <div className="flex items-center gap-1 sm:gap-4">
+              <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="hidden sm:flex text-blue-600 hover:text-blue-700 hover:bg-blue-50 px-2">
+                <Zap className="h-4 w-4" />
               </Button>
-              <Link to="/login">
-                <Button variant="outline" size="sm">
+              <Link to="/login" className="hidden sm:block">
+                <Button variant="outline" size="sm" className="text-xs sm:text-sm">
                   Sign In
                 </Button>
               </Link>
-              <Button variant="ghost" size="sm" onClick={handleBack}>
-                <ArrowLeft className="mr-2 h-4 w-4" /> Back
+              <Button variant="ghost" size="sm" onClick={handleBack} className="text-xs sm:text-sm">
+                <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="hidden sm:inline ml-2">Back</span>
               </Button>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-16">
         {/* Launch Offer Banner */}
-        <div className="mb-16 bg-gradient-to-r from-purple-50 via-pink-50 to-red-50 border-2 border-purple-300 rounded-lg p-6 md:p-8">
-          <div className="flex items-start space-x-4">
+        <div className="mb-8 sm:mb-16 bg-gradient-to-r from-purple-50 via-pink-50 to-red-50 border-2 border-purple-300 rounded-lg p-4 sm:p-6 md:p-8">
+          <div className="flex items-start gap-3 sm:gap-4">
             <div className="flex-shrink-0">
-              <Gift className="h-10 w-10 text-purple-600 animate-bounce" />
+              <Gift className="h-8 sm:h-10 w-8 sm:w-10 text-purple-600 animate-bounce" />
             </div>
-            <div className="flex-1">
-              <h2 className="text-2xl md:text-3xl font-bold text-purple-900 mb-2">
+            <div className="flex-1 min-w-0">
+              <h2 className="text-lg sm:text-2xl md:text-3xl font-bold text-purple-900 mb-2">
                 🚀 45-Day Launch Offer!
               </h2>
-              <p className="text-purple-700 font-semibold mb-3 text-lg">
-                All premium products are <span className="text-red-600 bg-red-50 px-2 py-1 rounded">FREE for 45 days</span>
+              <p className="text-purple-700 font-semibold mb-2 sm:mb-3 text-xs sm:text-lg">
+                All premium products are <span className="text-red-600 bg-red-50 px-2 py-1 rounded inline-block text-xs sm:text-sm">FREE for 45 days</span>
               </p>
-              <p className="text-purple-600 mb-2">
+              <p className="text-purple-600 mb-2 text-xs sm:text-base">
                 Get full access to Essential, Premium, or Complete Coaching plans at no cost during our launch period.
               </p>
-              <p className="text-sm text-purple-600">
+              <p className="text-xs text-purple-600">
                 <span className="font-semibold">Exception:</span> Live Training & Coaching services available as paid add-ons
               </p>
             </div>
@@ -193,29 +194,29 @@ export default function Pricing() {
         </div>
 
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+        <div className="text-center mb-8 sm:mb-16">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-3 sm:mb-6">
             Evidence-Based Wellness, Every Budget
           </h1>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
+          <p className="text-sm sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto mb-6 sm:mb-8">
             Science-backed plans personalized to your sleep, nutrition,
             training, and stress. No pseudoscience. No gimmicks.
           </p>
         </div>
 
         {/* CORE PLANS SECTION */}
-        <div className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">
+        <div className="mb-12 sm:mb-20">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2 sm:mb-4">
               Core Plans
             </h2>
-            <p className="text-slate-600">
+            <p className="text-slate-600 text-sm sm:text-base">
               Choose the depth of personalization that fits your goals
             </p>
           </div>
 
           {/* Pricing Cards */}
-          <div className="grid lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
             {plans.map((plan) => (
               <Card
                 key={plan.id}
@@ -225,45 +226,47 @@ export default function Pricing() {
                     : ""
                 } ${
                   plan.popular
-                    ? "scale-105 border-2 border-blue-500 shadow-xl lg:row-span-2"
+                    ? "sm:scale-105 border-2 border-blue-500 shadow-xl lg:row-span-2"
                     : "border-slate-200"
                 }`}
               >
                 {plan.popular && (
-                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center py-2 text-sm font-semibold">
-                    <Star className="inline h-4 w-4 mr-1" />
-                    Most Popular
+                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center py-1.5 sm:py-2 text-xs sm:text-sm font-semibold">
+                    <Star className="inline h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                    <span className="hidden sm:inline">Most Popular</span>
+                    <span className="sm:hidden">Popular</span>
                   </div>
                 )}
 
-                <CardHeader className={plan.popular ? "pt-12" : ""}>
-                  <CardTitle className="text-2xl font-bold text-slate-900">
+                <CardHeader className={`pb-3 sm:pb-6 ${plan.popular ? "pt-10 sm:pt-12" : ""}`}>
+                  <CardTitle className="text-lg sm:text-2xl font-bold text-slate-900">
                     {plan.name}
                   </CardTitle>
-                  <CardDescription className="text-slate-600 text-sm">
+                  <CardDescription className="text-slate-600 text-xs sm:text-sm">
                     {plan.pageCount} page{plan.pageCount !== 1 ? "s" : ""}{" "}
                     personalized for you
                   </CardDescription>
 
-                  <div className="pt-4">
-                    <div className="flex items-baseline space-x-2 mb-2">
-                      <span className="text-3xl font-bold text-slate-900">
+                  <div className="pt-3 sm:pt-4">
+                    <div className="flex items-baseline gap-2 mb-2">
+                      <span className="text-2xl sm:text-3xl font-bold text-slate-900">
                         ₹{plan.price.toLocaleString("en-IN")}
                       </span>
-                      <span className="text-slate-600 text-sm">
+                      <span className="text-slate-600 text-xs sm:text-sm">
                         {plan.id === "free-blueprint" ? "Free" : "one-time"}
                       </span>
                     </div>
                     <Badge variant="outline" className="text-xs">
-                      Approx {plan.pageCount}-page PDF
+                      {plan.pageCount}-page PDF
                     </Badge>
                   </div>
                 </CardHeader>
 
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-4 sm:space-y-6 p-3 sm:p-6">
                   <Button
                     onClick={() => handleSelectPlan(plan.id)}
-                    className={`w-full font-semibold ${
+                    size="sm"
+                    className={`w-full font-semibold text-xs sm:text-sm h-auto py-2 sm:py-2.5 ${
                       plan.popular
                         ? "bg-gradient-to-r from-blue-600 to-cyan-600 hover:opacity-90 text-white"
                         : selectedPlanId === plan.id
@@ -280,7 +283,7 @@ export default function Pricing() {
                   >
                     {selectedPlanId === plan.id ? (
                       <>
-                        <Check className="mr-2 h-4 w-4" />
+                        <Check className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                         Selected
                       </>
                     ) : (
@@ -288,8 +291,8 @@ export default function Pricing() {
                     )}
                   </Button>
 
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-slate-900 text-sm">
+                  <div className="space-y-2 sm:space-y-3">
+                    <h4 className="font-semibold text-slate-900 text-xs sm:text-sm">
                       Includes:
                     </h4>
                     <ul className="space-y-2">

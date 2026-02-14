@@ -592,14 +592,14 @@ export default function Quiz() {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 flex flex-col">
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl">
-                <Sparkles className="h-6 w-6 text-white" />
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-14 sm:h-16">
+            <Link to="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+              <div className="flex items-center justify-center w-8 sm:w-10 h-8 sm:h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg sm:rounded-xl flex-shrink-0">
+                <Sparkles className="h-5 sm:h-6 w-5 sm:w-6 text-white" />
               </div>
-              <div>
-                <span className="font-bold text-xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <div className="hidden sm:block">
+                <span className="font-bold text-base sm:text-xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   Genewell
                 </span>
                 <div className="text-xs text-gray-500 font-medium">
@@ -608,23 +608,22 @@ export default function Quiz() {
               </div>
             </Link>
 
-            <div className="flex items-center space-x-4">
-              <Badge className="bg-purple-100 text-purple-700">
-                Question {currentStep + 1} of {quizQuestions.length}
+            <div className="flex items-center gap-1 sm:gap-4">
+              <Badge className="bg-purple-100 text-purple-700 text-xs sm:text-sm py-1">
+                <span className="hidden sm:inline">Question {currentStep + 1} of {quizQuestions.length}</span>
+                <span className="sm:hidden">{currentStep + 1}/{quizQuestions.length}</span>
               </Badge>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setLanguage(language === "en" ? "hi" : "en")}
+                className="hidden sm:flex text-xs sm:text-sm px-2"
               >
-                <Globe className="h-4 w-4 mr-2" />
-                {language === "en" ? "हिंदी" : "English"}
+                <Globe className="h-4 w-4" />
+                <span className="hidden md:inline ml-2">{language === "en" ? "हिंदी" : "English"}</span>
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-purple-600 hover:text-purple-700 hover:bg-purple-50">
-                <Sparkles className="mr-2 h-4 w-4" /> HOME
-              </Button>
-              <Button variant="ghost" onClick={() => navigate("/")}>
-                <ArrowLeft className="mr-2 h-4 w-4" /> Back
+              <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="hidden sm:flex text-purple-600 hover:text-purple-700 hover:bg-purple-50 px-2">
+                <ArrowLeft className="h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -633,32 +632,32 @@ export default function Quiz() {
 
       {/* Main Content - Centered and Scrollable */}
       <div id="quiz-content" className="flex-1 overflow-y-auto pb-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-3xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8">
         {/* Progress */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
+        <div className="mb-6 sm:mb-8">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
                 {language === "en" ? "Wellness Analysis" : "स्वास्थ्य विश्लेषण"}
               </h1>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-xs sm:text-sm">
                 {language === "en"
                   ? `Step ${currentStep + 1} of ${quizQuestions.length}`
                   : `चरण ${currentStep + 1} का ${quizQuestions.length}`}
               </p>
             </div>
-            <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1">
+            <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-2 sm:px-3 py-1 text-xs sm:text-sm">
               {Math.round(progress)}% {language === "en" ? "Complete" : "पूर्ण"}
             </Badge>
           </div>
-          <Progress value={progress} className="h-3 bg-white/50" />
+          <Progress value={progress} className="h-2 sm:h-3 bg-white/50" />
         </div>
 
         {/* Error Display */}
         {error && (
           <Alert className="mb-6 border-red-200 bg-red-50">
             <AlertCircle className="h-4 w-4" />
-            <AlertDescription className="text-red-700">
+            <AlertDescription className="text-red-700 text-xs sm:text-sm ml-2">
               {error}
             </AlertDescription>
           </Alert>
@@ -666,19 +665,19 @@ export default function Quiz() {
 
         {/* Question Card */}
         <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm">
-          <CardHeader className="text-center pb-6">
-            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl flex items-center justify-center mx-auto mb-6">
-              <Icon className="h-10 w-10 text-white" />
+          <CardHeader className="text-center pb-4 sm:pb-6">
+            <div className="w-16 sm:w-20 h-16 sm:h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
+              <Icon className="h-8 sm:h-10 w-8 sm:w-10 text-white" />
             </div>
-            <CardTitle className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-4">
               {currentQuestion.title}
             </CardTitle>
-            <CardDescription className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <CardDescription className="text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto">
               {currentQuestion.subtitle}
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="space-y-6">
+          <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
             {/* Select Questions */}
             {currentQuestion.type === "select" && (
               <div className="space-y-2">
@@ -686,7 +685,7 @@ export default function Quiz() {
                   value={(currentAnswer as string) || ""}
                   onValueChange={(value) => handleAnswer(currentQuestion.id, value)}
                 >
-                  <SelectTrigger className="h-12 text-lg">
+                  <SelectTrigger className="h-10 sm:h-12 text-sm sm:text-lg">
                     <SelectValue placeholder="Select an option" />
                   </SelectTrigger>
                   <SelectContent>
@@ -862,34 +861,37 @@ export default function Quiz() {
       </div>
 
       {/* Sticky Navigation Buttons at Bottom - Always Visible */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-3 z-40">
-        <div className="max-w-3xl mx-auto flex justify-between gap-3">
+      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 px-3 sm:px-4 py-2.5 sm:py-3 z-40 safe-bottom">
+        <div className="max-w-3xl mx-auto flex justify-between gap-2 sm:gap-3">
           <Button
             variant="outline"
             onClick={handlePrevious}
             disabled={currentStep === 0}
-            className="flex-1 px-4 py-2 text-sm"
+            className="flex-1 px-2 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm h-auto"
           >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            {language === "en" ? `Prev (Q${currentStep})` : "पिछला"}
+            <ArrowLeft className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">{language === "en" ? `Prev (Q${currentStep})` : "पिछला"}</span>
+            <span className="sm:hidden">{language === "en" ? "Prev" : "पिछला"}</span>
           </Button>
 
           <Button
             onClick={handleNext}
             disabled={!isStepValid() || isSubmitting}
-            className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 text-sm"
+            className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-2 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm h-auto"
           >
             {isSubmitting ? (
               <span className="text-xs">Creating...</span>
             ) : currentStep === quizQuestions.length - 1 ? (
               <>
-                <CheckCircle className="mr-2 h-4 w-4" />
-                {language === "en" ? "Get Blueprint" : "पाएं"}
+                <CheckCircle className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="hidden sm:inline">{language === "en" ? "Get Blueprint" : "पाएं"}</span>
+                <span className="sm:hidden">{language === "en" ? "Get" : "पाएं"}</span>
               </>
             ) : (
               <>
-                {language === "en" ? "Next" : "अगला"}
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <span className="hidden sm:inline">{language === "en" ? "Next" : "अगला"}</span>
+                <span className="sm:hidden">{language === "en" ? "Next" : "अगला"}</span>
+                <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
               </>
             )}
           </Button>

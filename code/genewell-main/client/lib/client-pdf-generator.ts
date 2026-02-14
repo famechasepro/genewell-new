@@ -749,11 +749,30 @@ export async function generatePersonalizedPDFClient(
 
 export function downloadPDF(blob: Blob, filename: string): void {
   const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+
+  // Detect if device is iOS (iPhone/iPad)
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  if (isIOS) {
+    // For iOS, open in new window for user to save
+    const newWindow = window.open();
+    if (newWindow) {
+      newWindow.location.href = url;
+    }
+  } else {
+    // For Android and desktop, use traditional download method
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    link.style.display = "none";
+    document.body.appendChild(link);
+
+    // Use setTimeout to ensure link is added to DOM before clicking
+    setTimeout(() => {
+      link.click();
+      document.body.removeChild(link);
+      // Clean up the object URL after a short delay
+      setTimeout(() => URL.revokeObjectURL(url), 100);
+    }, 10);
+  }
 }

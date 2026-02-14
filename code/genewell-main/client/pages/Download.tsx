@@ -269,12 +269,12 @@ export default function Download() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
-          <CardContent className="p-8 text-center">
-            <AlertCircle className="h-12 w-12 text-red-600 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-slate-900 mb-2">
+          <CardContent className="p-6 sm:p-8 text-center">
+            <AlertCircle className="h-10 sm:h-12 w-10 sm:h-12 text-red-600 mx-auto mb-3 sm:mb-4" />
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
               Quiz Required
             </h1>
-            <p className="text-slate-600 mb-6">
+            <p className="text-slate-600 mb-6 text-sm sm:text-base">
               Your wellness blueprint is personalized based on your quiz
               responses. Please complete the wellness quiz first to get started.
             </p>
@@ -296,12 +296,12 @@ export default function Download() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md text-center p-8">
-          <Loader className="h-12 w-12 text-blue-600 mx-auto mb-4 animate-spin" />
-          <h2 className="text-xl font-bold text-slate-900 mb-2">
+        <Card className="w-full max-w-md text-center p-6 sm:p-8">
+          <Loader className="h-10 sm:h-12 w-10 sm:w-12 text-blue-600 mx-auto mb-3 sm:mb-4 animate-spin" />
+          <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">
             Creating Your Personalized Blueprint
           </h2>
-          <p className="text-slate-600 text-sm">
+          <p className="text-slate-600 text-xs sm:text-sm">
             Generating your science-backed wellness plan with your name and personalized recommendations...
           </p>
           <p className="text-xs text-slate-500 mt-4">This usually takes 5-15 seconds</p>
@@ -321,22 +321,22 @@ export default function Download() {
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center space-x-2">
+          <div className="flex justify-between items-center h-14 sm:h-16">
+            <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
               <div className="flex items-center justify-center w-8 h-8 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg">
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
-              <span className="font-bold text-lg text-blue-900">Genewell</span>
+              <span className="font-bold text-base sm:text-lg text-blue-900">Genewell</span>
             </Link>
-            <div className="flex items-center space-x-2">
-              <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
-                <Sparkles className="mr-2 h-4 w-4" /> HOME
+            <div className="flex items-center gap-1 sm:gap-2">
+              <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="hidden sm:flex text-blue-600 hover:text-blue-700 hover:bg-blue-50 px-2">
+                <Sparkles className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="sm" onClick={() => navigate("/pricing")}>
-                <ArrowLeft className="mr-2 h-4 w-4" /> Back to Plans
+              <Button variant="ghost" size="sm" onClick={() => navigate("/pricing")} className="hidden sm:flex text-slate-700 hover:bg-slate-100 px-2">
+                <ArrowLeft className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/quiz")}>
-                <ArrowLeft className="mr-2 h-4 w-4" /> Take Another Quiz
+              <Button variant="outline" size="sm" onClick={() => navigate("/quiz")} className="text-xs sm:text-sm">
+                New Quiz
               </Button>
             </div>
           </div>
@@ -344,23 +344,23 @@ export default function Download() {
       </header>
 
       {/* Main Content */}
-      <div className="flex-1 py-12">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex-1 py-6 sm:py-12">
+        <div className="max-w-2xl mx-auto px-3 sm:px-6 lg:px-8">
           {/* Success Header */}
-          <div className="text-center mb-8">
-            <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
-            <h1 className="text-4xl font-bold text-slate-900 mb-2">
-              Your Blueprint is Ready, {quizData.userName || "User"}!
+          <div className="text-center mb-6 sm:mb-8">
+            <CheckCircle className="h-12 sm:h-16 w-12 sm:w-16 text-green-600 mx-auto mb-3 sm:mb-4" />
+            <h1 className="text-2xl sm:text-4xl font-bold text-slate-900 mb-2">
+              Your Blueprint is Ready{quizData.userName ? `, ${quizData.userName}` : ""}!
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-base sm:text-xl text-slate-600">
               Your personalized wellness blueprint has been generated based on your responses
             </p>
           </div>
 
           {error && (
-            <Alert className="mb-6 border-red-200 bg-red-50">
+            <Alert className="mb-4 sm:mb-6 border-red-200 bg-red-50">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription className="text-red-700 ml-2">
+              <AlertDescription className="text-red-700 ml-2 text-sm sm:text-base">
                 {error}
               </AlertDescription>
             </Alert>
@@ -368,26 +368,26 @@ export default function Download() {
 
           {/* Configuration Summary */}
           {plan && (
-            <Card className="mb-6 border-2 border-green-200 bg-green-50/30">
-              <CardHeader>
-                <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                <CardDescription>
+            <Card className="mb-4 sm:mb-6 border-2 border-green-200 bg-green-50/30">
+              <CardHeader className="pb-3 sm:pb-6">
+                <CardTitle className="text-xl sm:text-2xl">{plan.name}</CardTitle>
+                <CardDescription className="text-xs sm:text-sm">
                   {pdfData?.pageCount || plan.pageCount} pages • Personalized for {quizData.userName || "you"}
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="p-3 sm:p-6">
+                <div className="space-y-3 sm:space-y-4">
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-3">
+                    <h3 className="font-semibold text-slate-900 mb-2 sm:mb-3 text-sm sm:text-base">
                       Your Blueprint Includes:
                     </h3>
-                    <ul className="space-y-2">
+                    <ul className="space-y-1.5 sm:space-y-2">
                       {plan.details.map((feature, idx) => (
                         <li
                           key={idx}
-                          className="flex items-start space-x-2 text-slate-700"
+                          className="flex items-start gap-2 text-slate-700 text-xs sm:text-sm"
                         >
-                          <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -395,22 +395,22 @@ export default function Download() {
                   </div>
 
                   {selectedAddOns.length > 0 && (
-                    <div className="border-t border-green-200 pt-4">
-                      <h3 className="font-semibold text-slate-900 mb-3">
+                    <div className="border-t border-green-200 pt-3 sm:pt-4">
+                      <h3 className="font-semibold text-slate-900 mb-2 sm:mb-3 text-sm sm:text-base">
                         Premium Add-Ons Included:
                       </h3>
                       <div className="space-y-2">
                         {selectedAddOns.map((addon) => (
                           <div
                             key={addon!.id}
-                            className="flex items-start space-x-2 bg-white/60 p-3 rounded-lg border border-green-100"
+                            className="flex items-start gap-2 bg-white/60 p-2 sm:p-3 rounded-lg border border-green-100"
                           >
-                            <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                            <div className="flex-1">
-                              <p className="font-semibold text-slate-900">
+                            <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1 min-w-0">
+                              <p className="font-semibold text-slate-900 text-xs sm:text-sm">
                                 {addon!.name}
                               </p>
-                              <p className="text-xs text-slate-600 mt-1">
+                              <p className="text-xs text-slate-600 mt-0.5">
                                 +{addon!.pageCountAddition} pages
                               </p>
                             </div>
@@ -421,15 +421,15 @@ export default function Download() {
                   )}
 
                   {pdfData && (
-                    <div className="border-t border-green-200 pt-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-white/60 p-3 rounded-lg">
+                    <div className="border-t border-green-200 pt-3 sm:pt-4">
+                      <div className="grid grid-cols-2 gap-2 sm:gap-4">
+                        <div className="bg-white/60 p-2 sm:p-3 rounded-lg">
                           <p className="text-xs text-slate-600">Total Pages</p>
-                          <p className="text-2xl font-bold text-green-600">
+                          <p className="text-xl sm:text-2xl font-bold text-green-600 mt-1">
                             {pdfData.pageCount}
                           </p>
                         </div>
-                        <div className="bg-white/60 p-3 rounded-lg">
+                        <div className="bg-white/60 p-2 sm:p-3 rounded-lg">
                           <p className="text-xs text-slate-600">Generated</p>
                           <p className="text-xs text-slate-900 mt-1">
                             {new Date(pdfData.generatedAt).toLocaleDateString()}
@@ -445,26 +445,25 @@ export default function Download() {
 
           {/* Download Buttons */}
           {pdfData && (
-            <Card className="mb-6 border-2 border-blue-500">
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-cyan-50">
-                <CardTitle>Download Your Personalized Blueprint</CardTitle>
+            <Card className="mb-4 sm:mb-6 border-2 border-blue-500">
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-cyan-50 pb-3 sm:pb-6">
+                <CardTitle className="text-lg sm:text-xl">Download Your Personalized Blueprint</CardTitle>
               </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-3">
+              <CardContent className="p-3 sm:p-6">
+                <div className="space-y-2 sm:space-y-3">
                   <Button
                     onClick={handleDownload}
                     disabled={isDownloading}
-                    size="lg"
-                    className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:opacity-90 text-white font-semibold py-6 text-lg"
+                    className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:opacity-90 text-white font-semibold py-3 sm:py-6 text-sm sm:text-base h-auto"
                   >
                     {isDownloading ? (
                       <>
-                        <Loader className="mr-2 h-5 w-5 animate-spin" />
+                        <Loader className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
                         Downloading...
                       </>
                     ) : (
                       <>
-                        <DownloadIcon className="mr-2 h-5 w-5" />
+                        <DownloadIcon className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                         Download PDF ({pdfData.pageCount} pages)
                       </>
                     )}
@@ -473,16 +472,15 @@ export default function Download() {
                   <Button
                     onClick={handleViewInline}
                     variant="outline"
-                    size="lg"
-                    className="w-full py-6 text-base"
+                    className="w-full py-3 sm:py-6 text-sm sm:text-base h-auto"
                   >
-                    <Eye className="mr-2 h-5 w-5" />
+                    <Eye className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                     View Online
                   </Button>
                 </div>
 
                 {pdfData.expiresAt && (
-                  <div className="mt-4 text-xs text-slate-500 text-center">
+                  <div className="mt-3 sm:mt-4 text-xs text-slate-500 text-center">
                     Your download expires on{" "}
                     {new Date(pdfData.expiresAt).toLocaleDateString()}
                   </div>
@@ -494,52 +492,52 @@ export default function Download() {
           {/* Next Steps */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">What's Next?</CardTitle>
+              <CardTitle className="text-base sm:text-lg">What's Next?</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-start space-x-4">
-                <Badge className="mt-1 flex-shrink-0">1</Badge>
-                <div>
-                  <h4 className="font-semibold text-slate-900">
+            <CardContent className="space-y-3 sm:space-y-4">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <Badge className="mt-0.5 flex-shrink-0 text-xs sm:text-sm">1</Badge>
+                <div className="min-w-0">
+                  <h4 className="font-semibold text-slate-900 text-sm sm:text-base">
                     Download your blueprint
                   </h4>
-                  <p className="text-sm text-slate-600 mt-1">
+                  <p className="text-xs sm:text-sm text-slate-600 mt-1">
                     Save the PDF to your device. It includes everything personalized to your profile with your name on the cover.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <Badge className="mt-1 flex-shrink-0">2</Badge>
-                <div>
-                  <h4 className="font-semibold text-slate-900">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <Badge className="mt-0.5 flex-shrink-0 text-xs sm:text-sm">2</Badge>
+                <div className="min-w-0">
+                  <h4 className="font-semibold text-slate-900 text-sm sm:text-base">
                     Review and understand your plan
                   </h4>
-                  <p className="text-sm text-slate-600 mt-1">
+                  <p className="text-xs sm:text-sm text-slate-600 mt-1">
                     Read through your personalized recommendations. Every recommendation is backed by 2024 peer-reviewed research and written for daily action.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <Badge className="mt-1 flex-shrink-0">3</Badge>
-                <div>
-                  <h4 className="font-semibold text-slate-900">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <Badge className="mt-0.5 flex-shrink-0 text-xs sm:text-sm">3</Badge>
+                <div className="min-w-0">
+                  <h4 className="font-semibold text-slate-900 text-sm sm:text-base">
                     Start implementing
                   </h4>
-                  <p className="text-sm text-slate-600 mt-1">
+                  <p className="text-xs sm:text-sm text-slate-600 mt-1">
                     Begin with Week 1 actions. Consistency beats perfection. Small daily steps create lasting transformation.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <Badge className="mt-1 flex-shrink-0">4</Badge>
-                <div>
-                  <h4 className="font-semibold text-slate-900">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <Badge className="mt-0.5 flex-shrink-0 text-xs sm:text-sm">4</Badge>
+                <div className="min-w-0">
+                  <h4 className="font-semibold text-slate-900 text-sm sm:text-base">
                     Track and adjust
                   </h4>
-                  <p className="text-sm text-slate-600 mt-1">
+                  <p className="text-xs sm:text-sm text-slate-600 mt-1">
                     Use the tracking tools in your blueprint. After 4 weeks, reassess and adjust based on what's working.
                   </p>
                 </div>
@@ -548,14 +546,14 @@ export default function Download() {
           </Card>
 
           {/* Support */}
-          <div className="mt-8 text-center p-6 bg-white rounded-lg border border-slate-200">
-            <h3 className="font-semibold text-slate-900 mb-2">Need Help?</h3>
-            <p className="text-slate-600 text-sm mb-4">
+          <div className="mt-6 sm:mt-8 text-center p-4 sm:p-6 bg-white rounded-lg border border-slate-200">
+            <h3 className="font-semibold text-slate-900 mb-2 text-sm sm:text-base">Need Help?</h3>
+            <p className="text-slate-600 text-xs sm:text-sm mb-4">
               Have questions about your plan or need additional support?
             </p>
             <a href="mailto:support@genewell.com">
-              <Button variant="outline">
-                <Mail className="mr-2 h-4 w-4" />
+              <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+                <Mail className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                 Contact Support
               </Button>
             </a>
