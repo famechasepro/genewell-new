@@ -157,14 +157,14 @@ export default function Index() {
       />
       {/* Navigation */}
       <nav className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl">
-                <Sparkles className="h-6 w-6 text-white" />
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-14 sm:h-16">
+            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+              <div className="flex items-center justify-center w-8 sm:w-10 h-8 sm:h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg sm:rounded-xl flex-shrink-0">
+                <Sparkles className="h-5 sm:h-6 w-5 sm:w-6 text-white" />
               </div>
-              <div>
-                <span className="font-bold text-xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <div className="hidden sm:block">
+                <span className="font-bold text-base sm:text-xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   Genewell
                 </span>
                 <div className="text-xs text-gray-500 font-medium">
@@ -173,41 +173,42 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center gap-6 md:gap-8">
               <a
                 href="#how-it-works"
-                className="text-gray-700 hover:text-purple-600 transition-colors font-medium"
+                className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm"
               >
                 How It Works
               </a>
               <a
                 href="#science"
-                className="text-gray-700 hover:text-purple-600 transition-colors font-medium"
+                className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm"
               >
                 The Science
               </a>
               <a
                 href="#results"
-                className="text-gray-700 hover:text-purple-600 transition-colors font-medium"
+                className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm"
               >
                 Results
               </a>
               <Link
                 to="/pricing"
-                className="text-gray-700 hover:text-purple-600 transition-colors font-medium"
+                className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm"
               >
                 Pricing
               </Link>
             </div>
 
-            <div className="flex items-center space-x-4">
-              <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0">
-                🔥 16K+ Plans Created
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Badge className="hidden sm:inline-flex bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0 text-xs sm:text-sm">
+                🔥 16K+ Plans
               </Badge>
               <Link to="/quiz">
-                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 rounded-full">
-                  Start Free Quiz
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-3 sm:px-6 rounded-full text-xs sm:text-sm h-auto py-2 sm:py-2.5">
+                  <span className="hidden sm:inline">Start Free Quiz</span>
+                  <span className="sm:hidden">Quiz</span>
+                  <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                 </Button>
               </Link>
             </div>
@@ -216,15 +217,15 @@ export default function Index() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-28">
+      <section className="relative overflow-hidden pt-8 pb-12 sm:pt-16 sm:pb-20 lg:pt-24 lg:pb-28">
         <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative">
           <div className="text-center max-w-4xl mx-auto">
-            <Badge className="mb-6 bg-purple-100 text-purple-700 hover:bg-purple-200 px-4 py-2 rounded-full text-sm font-medium">
+            <Badge className="mb-4 sm:mb-6 bg-purple-100 text-purple-700 hover:bg-purple-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
               ✨ AI-Powered • Science-Backed • Instant Results
             </Badge>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
               <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
                 Your Body,
               </span>
@@ -232,27 +233,26 @@ export default function Index() {
               <span className="text-gray-900">Decoded in 3 Minutes</span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">
               Get your personalized <strong>Wellness Blueprint</strong> — from
               optimal meal timing to perfect workouts — based on your unique
               metabolism, lifestyle & DNA (optional).
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center mb-8 sm:mb-12">
               <Link to="/quiz">
                 <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-6 text-lg rounded-full shadow-2xl hover:shadow-purple-500/25"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 sm:px-8 py-2.5 sm:py-6 text-sm sm:text-lg rounded-full shadow-2xl hover:shadow-purple-500/25 w-full sm:w-auto"
                 >
-                  <Brain className="mr-3 h-6 w-6" />
-                  Take the 3-Min Quiz (Free)
+                  <Brain className="mr-2 sm:mr-3 h-4 sm:h-6 w-4 sm:w-6" />
+                  <span className="hidden sm:inline">Take the 3-Min Quiz (Free)</span>
+                  <span className="sm:hidden">Start Quiz</span>
                 </Button>
               </Link>
 
               <Button
-                size="lg"
                 variant="outline"
-                className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 px-8 py-6 text-lg rounded-full"
+                className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 px-4 sm:px-8 py-2.5 sm:py-6 text-sm sm:text-lg rounded-full hidden sm:flex"
                 onClick={() => setShowVideoModal(true)}
               >
                 <Play className="mr-3 h-5 w-5" />
@@ -260,29 +260,31 @@ export default function Index() {
               </Button>
 
               <Button
-                size="lg"
                 variant="outline"
-                className="border-2 border-orange-200 text-orange-700 hover:bg-orange-50 px-8 py-6 text-lg rounded-full"
+                className="border-2 border-orange-200 text-orange-700 hover:bg-orange-50 px-4 sm:px-8 py-2.5 sm:py-6 text-sm sm:text-lg rounded-full w-full sm:w-auto"
                 onClick={handleSampleReport}
               >
-                <Download className="mr-3 h-5 w-5" />
-                See Sample Report
+                <Download className="mr-2 sm:mr-3 h-4 sm:h-5 w-4 sm:w-5" />
+                <span className="hidden sm:inline">See Sample Report</span>
+                <span className="sm:hidden">Sample</span>
               </Button>
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center items-center gap-8 text-gray-500 text-sm">
-              <div className="flex items-center space-x-2">
-                <Shield className="h-5 w-5 text-green-500" />
-                <span>🔒 DNA Never Stored</span>
+            <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-6 lg:gap-8 text-gray-500 text-xs sm:text-sm">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-green-500" />
+                <span className="hidden sm:inline">🔒 DNA Never Stored</span>
+                <span className="sm:hidden">DNA Safe</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <Award className="h-5 w-5 text-purple-500" />
-                <span>⚡ Instant Results</span>
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Award className="h-4 w-4 sm:h-5 sm:w-5 text-purple-500" />
+                <span>⚡ Instant</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <Users className="h-5 w-5 text-pink-500" />
-                <span>👥 16,000+ Success Stories</span>
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Users className="h-4 w-4 sm:h-5 sm:w-5 text-pink-500" />
+                <span className="hidden sm:inline">👥 16,000+ Success Stories</span>
+                <span className="sm:hidden">16K+</span>
               </div>
             </div>
           </div>
@@ -290,34 +292,34 @@ export default function Index() {
       </section>
 
       {/* Social Proof */}
-      <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
+      <section className="py-8 sm:py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-purple-600 mb-2">
-                16,000+
+              <div className="text-2xl sm:text-3xl font-bold text-purple-600 mb-1 sm:mb-2">
+                16K+
               </div>
-              <div className="text-gray-600">Plans Created by Users</div>
+              <div className="text-gray-600 text-xs sm:text-sm">Plans Created</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-pink-600 mb-2">Science-Backed</div>
-              <div className="text-gray-600">
-                AI-Powered Recommendations
-              </div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-orange-500 mb-2">
-                25 Questions
-              </div>
-              <div className="text-gray-600">
-                Personalized Health Assessment
+              <div className="text-2xl sm:text-3xl font-bold text-pink-600 mb-1 sm:mb-2">Science</div>
+              <div className="text-gray-600 text-xs sm:text-sm">
+                AI-Powered
               </div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-emerald-500 mb-2">
-                Instant
+              <div className="text-2xl sm:text-3xl font-bold text-orange-500 mb-1 sm:mb-2">
+                25 Q's
               </div>
-              <div className="text-gray-600">3-Minute Quiz Completion</div>
+              <div className="text-gray-600 text-xs sm:text-sm">
+                Assessment
+              </div>
+            </div>
+            <div>
+              <div className="text-2xl sm:text-3xl font-bold text-emerald-500 mb-1 sm:mb-2">
+                3 Min
+              </div>
+              <div className="text-gray-600 text-xs sm:text-sm">Quiz</div>
             </div>
           </div>
         </div>
@@ -326,51 +328,51 @@ export default function Index() {
       {/* How It Works */}
       <section
         id="how-it-works"
-        className="py-20 bg-gradient-to-br from-purple-50 to-pink-50"
+        className="py-12 sm:py-20 bg-gradient-to-br from-purple-50 to-pink-50"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-6">
               How Your{" "}
               <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Transformation
               </span>{" "}
               Begins
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
               Answer 25 science-backed questions about your body, habits, and goals to create your unique wellness blueprint
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-8">
             <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Brain className="h-8 w-8 text-white" />
+              <CardHeader className="text-center pb-3 sm:pb-6">
+                <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Brain className="h-6 sm:h-8 w-6 sm:w-8 text-white" />
                 </div>
-                <CardTitle className="text-2xl text-gray-900 mb-2">
+                <CardTitle className="text-lg sm:text-2xl text-gray-900 mb-2">
                   Smart Quiz
                 </CardTitle>
-                <CardDescription className="text-gray-600 text-lg">
+                <CardDescription className="text-gray-600 text-xs sm:text-lg">
                   Answer 25 science-backed questions about your body, habits, and goals
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
+              <CardContent className="p-3 sm:p-6">
+                <ul className="space-y-2 sm:space-y-3 text-gray-600 text-xs sm:text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 flex-shrink-0" />
                     <span>Metabolic profiling & energy analysis</span>
                   </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 flex-shrink-0" />
                     <span>Digestion & energy patterns</span>
                   </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 flex-shrink-0" />
                     <span>Stress & sleep optimization</span>
                   </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500 flex-shrink-0" />
                     <span>Optional DNA integration</span>
                   </li>
                 </ul>
@@ -378,34 +380,34 @@ export default function Index() {
             </Card>
 
             <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Zap className="h-8 w-8 text-white" />
+              <CardHeader className="text-center pb-3 sm:pb-6">
+                <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Zap className="h-6 sm:h-8 w-6 sm:w-8 text-white" />
                 </div>
-                <CardTitle className="text-2xl text-gray-900 mb-2">
+                <CardTitle className="text-lg sm:text-2xl text-gray-900 mb-2">
                   AI Analysis
                 </CardTitle>
-                <CardDescription className="text-gray-600 text-lg">
+                <CardDescription className="text-gray-600 text-xs sm:text-lg">
                   Advanced algorithms create your personalized wellness
                   blueprint instantly
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-pink-500" />
+              <CardContent className="p-3 sm:p-6">
+                <ul className="space-y-2 sm:space-y-3 text-gray-600 text-xs sm:text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-pink-500 flex-shrink-0" />
                     <span>Evidence-Based Science</span>
                   </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-pink-500" />
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-pink-500 flex-shrink-0" />
                     <span>Behavioral psychology patterns</span>
                   </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-pink-500" />
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-pink-500 flex-shrink-0" />
                     <span>Nutritional genomics data</span>
                   </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-pink-500" />
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-pink-500 flex-shrink-0" />
                     <span>10,000+ successful case studies</span>
                   </li>
                 </ul>
@@ -413,33 +415,33 @@ export default function Index() {
             </Card>
 
             <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Target className="h-8 w-8 text-white" />
+              <CardHeader className="text-center pb-3 sm:pb-6">
+                <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Target className="h-6 sm:h-8 w-6 sm:w-8 text-white" />
                 </div>
-                <CardTitle className="text-2xl text-gray-900 mb-2">
+                <CardTitle className="text-lg sm:text-2xl text-gray-900 mb-2">
                   Your Blueprint
                 </CardTitle>
-                <CardDescription className="text-gray-600 text-lg">
+                <CardDescription className="text-gray-600 text-xs sm:text-lg">
                   Get your complete personalized wellness plan as a premium PDF
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-orange-500" />
+              <CardContent className="p-3 sm:p-6">
+                <ul className="space-y-2 sm:space-y-3 text-gray-600 text-xs sm:text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-orange-500 flex-shrink-0" />
                     <span>Custom meal timing & foods</span>
                   </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-orange-500" />
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-orange-500 flex-shrink-0" />
                     <span>Home-friendly workout plan</span>
                   </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-orange-500" />
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-orange-500 flex-shrink-0" />
                     <span>Sleep & stress protocols</span>
                   </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-orange-500" />
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-orange-500 flex-shrink-0" />
                     <span>Weekly lifestyle planner</span>
                   </li>
                 </ul>
@@ -447,14 +449,13 @@ export default function Index() {
             </Card>
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-8 sm:mt-12">
             <Link to="/quiz">
               <Button
-                size="lg"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-6 text-lg rounded-full"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 sm:px-8 py-2.5 sm:py-6 text-sm sm:text-lg rounded-full h-auto"
               >
                 Start Your 3-Minute Journey
-                <ArrowRight className="ml-3 h-5 w-5" />
+                <ArrowRight className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             </Link>
           </div>
@@ -462,16 +463,16 @@ export default function Index() {
       </section>
 
       {/* What You Get */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+      <section className="py-12 sm:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-6">
               Your Complete{" "}
               <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 Wellness Blueprint
               </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
               Everything you need for sustainable body optimization, delivered
               instantly
             </p>
